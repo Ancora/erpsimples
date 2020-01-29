@@ -1,11 +1,43 @@
-.myCssClass{
-    font-size:20px;
+.myCssClass {
+  font-size: 20px;
 }
 
-.my-login{
-    background: url('https://images.unsplash.com/photo-1544614463-88b0c990b4c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1398&q=80') no-repeat center center fixed !important; 
-    -webkit-background-size: cover  !important;
-    -moz-background-size: cover  !important;
-    -o-background-size: cover  !important;
-    background-size: cover  !important;
+.my-login {
+  background: url('../../../images/essencia-login.jpg') no-repeat center center fixed !important;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  background-size: cover !important;
+}
+
+.cor-link a {
+  color: black;
+  font-weight: bold;
+  font-size: large;
+  font-stretch: expanded;
+}
+
+body.theme-indigo > section > aside.sidebar > div.user-info {
+  background: url('../../../images/perfume-user.jpg') no-repeat center center !important;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  background-size: cover !important;
+  margin-top: 16px;
+}
+
+/* aside.sidebar {
+  background: url('../../../images/branco-sidebar.jpg') no-repeat center center !important;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  background-size: cover !important;
+} */
+
+body.theme-indigo {
+  background: url('../../../images/branco-sidebar.jpg') no-repeat center center fixed !important;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  background-size: cover !important;
 }

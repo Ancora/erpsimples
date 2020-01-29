@@ -145,7 +145,7 @@ ul.navbar-top-links .open>a, ul.navbar-top-links .open>a:hover, ul.navbar-top-li
     min-width: 0;
     word-wrap: break-word;
     border: 1px solid rgba(0,0,0,.125);
-    
+
 }
 
 .panel-heading{
@@ -569,9 +569,9 @@ section.content
   .navbar >  .navbar-brand,
   .navbar >  .navbar-brand {
     margin-left: 35px;
-    width: calc(100% - 120px); 
+    width: calc(100% - 120px);
     }
-    
+
     .navbar>.fa-columns {
         display: none;
     }
@@ -1402,7 +1402,7 @@ a.nav-link:not(.active):hover {
     }
     .navbar >  .navbar-brand {
         margin-left: 35px;
-        width: calc(100% - 120px); 
+        width: calc(100% - 120px);
     }
 }
 
@@ -1525,7 +1525,7 @@ color:white !important;
 }
 #login-wrapper .card > .panel-heading {
     background-color: #3F51B5 !important;
-color:white !important;  
+color:white !important;
     border-top: 2px solid #3F51B5;
 }
 .ui-dialog .window_modal
