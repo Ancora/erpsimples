@@ -66,12 +66,12 @@ class PessoaForm extends TPage
         $cidade_uf_id->setChangeAction(new TAction([$this,'onChangecidade_uf_id']));
         $tipo_pessoa->setChangeAction(new TAction([$this,'onChangeTipoPessoa']));
 
-        $tipo_pessoa->addValidation("Tipo", new TRequiredValidator()); 
-        $ativo->addValidation("Ativo", new TRequiredValidator()); 
-        $grupo->addValidation("Grupo", new TRequiredValidator()); 
-        $nome->addValidation("Nome", new TRequiredValidator()); 
-        $cidade_uf_id->addValidation("UF", new TRequiredValidator()); 
-        $cidade_id->addValidation("Cidade", new TRequiredValidator()); 
+        $tipo_pessoa->addValidation("Tipo", new TRequiredValidator());
+        $ativo->addValidation("Ativo", new TRequiredValidator());
+        $grupo->addValidation("Grupo", new TRequiredValidator());
+        $nome->addValidation("Nome", new TRequiredValidator());
+        $cidade_uf_id->addValidation("UF", new TRequiredValidator());
+        $cidade_id->addValidation("Cidade", new TRequiredValidator());
 
         $ativo->setValue('Sim');
         $ativo->setDefaultOption(false);
@@ -186,7 +186,7 @@ class PessoaForm extends TPage
         $row14 = $this->form->addFields([new TLabel("Tel Celular", null, '14px', null, '100%'),$contato_pessoa_tel_celular],[new TLabel("Tel Fixo", null, '14px', null, '100%'),$contato_pessoa_tel_fixo]);
         $row14->layout = ['col-sm-3','col-sm-3'];
 
-        $row15 = $this->form->addFields([$contato_pessoa_id]);         
+        $row15 = $this->form->addFields([$contato_pessoa_id]);
         $add_contato_pessoa = new TButton('add_contato_pessoa');
 
         $action_contato_pessoa = new TAction(array($this, 'onAddContatoPessoa'));
@@ -213,7 +213,7 @@ class PessoaForm extends TPage
 
         // create the form actions
         $btn_onsave = $this->form->addAction("Salvar", new TAction([$this, 'onSave']), 'far:save #ffffff');
-        $btn_onsave->addStyleClass('btn-primary'); 
+        $btn_onsave->addStyleClass('btn-primary');
 
         $btn_onclear = $this->form->addAction("Limpar formulário", new TAction([$this, 'onClear']), 'fas:eraser #dd5a43');
 
@@ -234,25 +234,25 @@ class PessoaForm extends TPage
         {
 
             if (isset($param['cidade_uf_id']) && $param['cidade_uf_id'])
-            { 
+            {
                 $criteria = TCriteria::create(['uf_id' => (int) $param['cidade_uf_id']]);
-                TDBCombo::reloadFromModel(self::$formName, 'cidade_id', 'ancor907_erpsimples', 'Cidade', 'id', '{descricao}', 'descricao asc', $criteria, TRUE); 
-            } 
-            else 
-            { 
-                TCombo::clearField(self::$formName, 'cidade_id'); 
-            }  
+                TDBCombo::reloadFromModel(self::$formName, 'cidade_id', 'ancor907_erpsimples', 'Cidade', 'id', '{descricao}', 'descricao asc', $criteria, TRUE);
+            }
+            else
+            {
+                TCombo::clearField(self::$formName, 'cidade_id');
+            }
 
         }
         catch (Exception $e)
         {
             new TMessage('error', $e->getMessage());
         }
-    } 
+    }
 
-    public static function onChangeTipoPessoa($param = null) 
+    public static function onChangeTipoPessoa($param = null)
     {
-        try 
+        try
         {
             //code here
 
@@ -294,13 +294,13 @@ class PessoaForm extends TPage
             }
 
         }
-        catch (Exception $e) 
+        catch (Exception $e)
         {
-            new TMessage('error', $e->getMessage());    
+            new TMessage('error', $e->getMessage());
         }
     }
 
-    public function onSave($param = null) 
+    public function onSave($param = null)
     {
         try
         {
@@ -316,7 +316,7 @@ class PessoaForm extends TPage
 
             $this->form->validate(); // validate form data
 
-            $object = new Pessoa(); // create an empty object 
+            $object = new Pessoa(); // create an empty object
 
             $data = $this->form->getData(); // get form data as array
 
@@ -341,7 +341,7 @@ class PessoaForm extends TPage
             $object->fromArray( (array) $data); // load the object with data
 
             // Registrando data de cadastro (data_registro) e data de atualização (data_atualizacao) e usuário logado
-            if(!$object->id) 
+            if(!$object->id)
             {
                 $object->data_registro = date('Y-m-d H:i:s');
                 $object->usuario_registro = TSession::getValue('username');
@@ -354,16 +354,16 @@ class PessoaForm extends TPage
             }
             // Fim registro de datas e usuário logado
 
-            $object->store(); // save the object 
+            $object->store(); // save the object
 
             $this->fireEvents($object);
 
             $repository = PessoaGrupo::where('pessoa_id', '=', $object->id);
-            $repository->delete(); 
+            $repository->delete();
 
-            if ($data->grupo) 
+            if ($data->grupo)
             {
-                foreach ($data->grupo as $grupo_value) 
+                foreach ($data->grupo as $grupo_value)
                 {
                     $pessoa_grupo = new PessoaGrupo;
 
@@ -373,14 +373,14 @@ class PessoaForm extends TPage
                 }
             }
 
-            $contato_pessoa_items = $this->storeItems('Contato', 'pessoa_id', $object, 'contato_pessoa', function($masterObject, $detailObject){ 
+            $contato_pessoa_items = $this->storeItems('Contato', 'pessoa_id', $object, 'contato_pessoa', function($masterObject, $detailObject){
 
                 //code here
 
-            }); 
+            });
 
             // get the generated {PRIMARY_KEY}
-            $data->id = $object->id; 
+            $data->id = $object->id;
 
             $this->form->setData($data); // fill form data
             TTransaction::close(); // close the transaction
@@ -390,14 +390,14 @@ class PessoaForm extends TPage
             $messageAction = new TAction(['className', 'methodName']);
             **/
 
-            //$messageAction = new TAction(['PessoaForm', 'onClear']);
+            $messageAction = new TAction(['PessoaForm', 'onClear']);
 
             new TMessage('info', AdiantiCoreTranslator::translate('Record saved'), $messageAction);
 
         }
         catch (Exception $e) // in case of exception
         {
-            //</catchAutoCode> 
+            //</catchAutoCode>
 
             new TMessage('error', $e->getMessage()); // shows the exception error message
             $this->form->setData( $this->form->getData() ); // keep form data
@@ -414,25 +414,25 @@ class PessoaForm extends TPage
                 $key = $param['key'];  // get the parameter $key
                 TTransaction::open(self::$database); // open a transaction
 
-                $object = new Pessoa($key); // instantiates the Active Record 
+                $object = new Pessoa($key); // instantiates the Active Record
 
                                 $object->cidade_uf_id = $object->cidade->uf_id;
 
                 $criteria = TCriteria::create(['pessoa_id'=>$object->id]);
                 $object->grupo = PessoaGrupo::getIndexedArray('grupo_id', 'grupo_id', $criteria);
 
-                $contato_pessoa_items = $this->loadItems('Contato', 'pessoa_id', $object, 'contato_pessoa', function($masterObject, $detailObject, $objectItems){ 
+                $contato_pessoa_items = $this->loadItems('Contato', 'pessoa_id', $object, 'contato_pessoa', function($masterObject, $detailObject, $objectItems){
 
                 //code here
 
-                }); 
+                });
 
-                $this->form->setData($object); // fill the form 
+                $this->form->setData($object); // fill the form
 
                 $this->fireEvents($object);
                 $this->onReload();
 
-                TTransaction::close(); // close the transaction 
+                TTransaction::close(); // close the transaction
             }
             else
             {
@@ -467,7 +467,7 @@ class PessoaForm extends TPage
 
             $contato_pessoa_items = TSession::getValue('contato_pessoa_items');
             $key = isset($data->contato_pessoa_id) && $data->contato_pessoa_id ? $data->contato_pessoa_id : uniqid();
-            $fields = []; 
+            $fields = [];
 
             $fields['contato_pessoa_nome'] = $data->contato_pessoa_nome;
             $fields['contato_pessoa_nome_reduzido'] = $data->contato_pessoa_nome_reduzido;
@@ -557,24 +557,24 @@ class PessoaForm extends TPage
 
     public function onReloadContatoPessoa( $param )
     {
-        $items = TSession::getValue('contato_pessoa_items'); 
+        $items = TSession::getValue('contato_pessoa_items');
 
-        $this->contato_pessoa_list->clear(); 
+        $this->contato_pessoa_list->clear();
 
-        if($items) 
-        { 
-            $cont = 1; 
-            foreach ($items as $key => $item) 
+        if($items)
+        {
+            $cont = 1;
+            foreach ($items as $key => $item)
             {
                 $rowItem = new StdClass;
 
-                $action_del = new TAction(array($this, 'onDeleteContatoPessoa')); 
+                $action_del = new TAction(array($this, 'onDeleteContatoPessoa'));
                 $action_del->setParameter('contato_pessoa_id_row_id', $key);
                 $action_del->setParameter('row_data', base64_encode(serialize($item)));
                 $action_del->setParameter('key', $key);
 
-                $action_edi = new TAction(array($this, 'onEditContatoPessoa'));  
-                $action_edi->setParameter('contato_pessoa_id_row_id', $key);  
+                $action_edi = new TAction(array($this, 'onEditContatoPessoa'));
+                $action_edi->setParameter('contato_pessoa_id_row_id', $key);
                 $action_edi->setParameter('row_data', base64_encode(serialize($item)));
                 $action_edi->setParameter('key', $key);
 
@@ -606,9 +606,9 @@ class PessoaForm extends TPage
                 $row = $this->contato_pessoa_list->addItem($rowItem);
 
                 $cont++;
-            } 
-        } 
-    } 
+            }
+        }
+    }
 
     public function onShow($param = null)
     {
@@ -616,7 +616,7 @@ class PessoaForm extends TPage
 
         $this->onReload();
 
-    } 
+    }
 
     public function fireEvents( $object )
     {
@@ -644,7 +644,7 @@ class PessoaForm extends TPage
             }
         }
         TForm::sendData(self::$formName, $obj);
-    }  
+    }
 
     public function onReload($params = null)
     {
@@ -653,10 +653,10 @@ class PessoaForm extends TPage
         $this->onReloadContatoPessoa($params);
     }
 
-    public function show() 
-    { 
-        if (!$this->loaded AND (!isset($_GET['method']) OR $_GET['method'] !== 'onReload') ) 
-        { 
+    public function show()
+    {
+        if (!$this->loaded AND (!isset($_GET['method']) OR $_GET['method'] !== 'onReload') )
+        {
             $this->onReload( func_get_arg(0) );
         }
         parent::show();
