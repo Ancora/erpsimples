@@ -29,32 +29,13 @@ class TipoDocumentoList extends TPage
         $id = new TEntry('id');
         $descricao = new TEntry('descricao');
         $sigla = new TEntry('sigla');
-        $data_registro_ini = new TDate('data_registro_ini');
-        $data_registro_fim = new TDate('data_registro_fim');
-        $usuario_registro = new TEntry('usuario_registro');
 
-        $sigla->forceUpperCase();
-
-        $descricao->autofocus = 'autofocus';
-
-        $data_registro_ini->setMask('dd/mm/yyyy');
-        $data_registro_fim->setMask('dd/mm/yyyy');
-
-        $data_registro_ini->setDatabaseMask('yyyy-mm-dd');
-        $data_registro_fim->setDatabaseMask('yyyy-mm-dd');
-
-        $id->setSize('100%');
+        $id->setSize(100);
         $sigla->setSize('100%');
         $descricao->setSize('100%');
-        $usuario_registro->setSize('100%');
-        $data_registro_ini->setSize('100%');
-        $data_registro_fim->setSize('100%');
 
         $row1 = $this->form->addFields([new TLabel("Código", null, '14px', null, '100%'),$id],[new TLabel("Descrição", null, '14px', null, '100%'),$descricao],[new TLabel("Sigla", null, '14px', null, '100%'),$sigla]);
-        $row1->layout = [' col-sm-2','col-sm-6','col-sm-2'];
-
-        $row2 = $this->form->addFields([new TLabel("Cadastrado de ...", null, '14px', null, '100%'),$data_registro_ini],[new TLabel("... até", null, '14px', null, '100%'),$data_registro_fim],[new TLabel("Cadastrado por", null, '14px', null, '100%'),$usuario_registro]);
-        $row2->layout = [' col-sm-3',' col-sm-3',' col-sm-3'];
+        $row1->layout = [' col-sm-2',' col-sm-7','col-sm-2'];
 
         // keep the form filled during navigation with session data
         $this->form->setData( TSession::getValue(__CLASS__.'_filter_data') );
@@ -62,11 +43,9 @@ class TipoDocumentoList extends TPage
         $btn_onsearch = $this->form->addAction("Buscar", new TAction([$this, 'onSearch']), 'fas:search #ffffff');
         $btn_onsearch->addStyleClass('btn-primary'); 
 
-        $btn_onexportcsv = $this->form->addAction("Exportar como CSV", new TAction([$this, 'onExportCsv']), 'far:file-alt #ffffff');
-        $btn_onexportcsv->addStyleClass('btn-info'); 
+        $btn_onexportcsv = $this->form->addAction("Exportar como CSV", new TAction([$this, 'onExportCsv']), 'far:file-alt #000000');
 
-        $btn_onshow = $this->form->addAction("Cadastrar", new TAction(['TipoDocumentoForm', 'onShow']), 'fas:plus #ffffff');
-        $btn_onshow->addStyleClass('btn-success'); 
+        $btn_onshow = $this->form->addAction("Cadastrar", new TAction(['TipoDocumentoForm', 'onShow']), 'fas:plus #69aa46');
 
         // creates a Datagrid
         $this->datagrid = new TDataGrid;
@@ -77,20 +56,20 @@ class TipoDocumentoList extends TPage
         $this->datagrid->style = 'width: 100%';
         $this->datagrid->setHeight(320);
 
-        $column_id = new TDataGridColumn('id', "Código", 'center' , '52.2px');
-        $column_descricao = new TDataGridColumn('descricao', "Descrição", 'left' , '60%');
-        $column_sigla = new TDataGridColumn('sigla', "Sigla", 'center' , '10%');
-        $column_data_registro_transformed = new TDataGridColumn('data_registro', "Data do Cadastro", 'center' , '20%');
-        $column_usuario_registro = new TDataGridColumn('usuario_registro', "Usuário", 'left' , '10%');
+        $column_id = new TDataGridColumn('id', "Código", 'center');
+        $column_descricao = new TDataGridColumn('descricao', "Descrição", 'left');
+        $column_sigla = new TDataGridColumn('sigla', "Sigla", 'center');
+        $column_data_registro_transformed = new TDataGridColumn('data_registro', "Cadastrado em", 'center');
+        $column_usuario_registro = new TDataGridColumn('usuario_registro', "Cadastrado por", 'left');
 
-        $column_data_registro_transformed->setTransformer(function($value, $object, $row)
+        $column_data_registro_transformed->setTransformer(function($value, $object, $row) 
         {
             if(!empty(trim($value)))
             {
                 try
                 {
                     $date = new DateTime($value);
-                    return $date->format('d/m/Y H:i');
+                    return $date->format('d/m/Y');
                 }
                 catch (Exception $e)
                 {
@@ -102,9 +81,15 @@ class TipoDocumentoList extends TPage
         $order_id = new TAction(array($this, 'onReload'));
         $order_id->setParameter('order', 'id');
         $column_id->setAction($order_id);
+        $order_descricao = new TAction(array($this, 'onReload'));
+        $order_descricao->setParameter('order', 'descricao');
+        $column_descricao->setAction($order_descricao);
         $order_sigla = new TAction(array($this, 'onReload'));
         $order_sigla->setParameter('order', 'sigla');
         $column_sigla->setAction($order_sigla);
+        $order_data_registro_transformed = new TAction(array($this, 'onReload'));
+        $order_data_registro_transformed->setParameter('order', 'data_registro');
+        $column_data_registro_transformed->setAction($order_data_registro_transformed);
         $order_usuario_registro = new TAction(array($this, 'onReload'));
         $order_usuario_registro->setParameter('order', 'usuario_registro');
         $column_usuario_registro->setAction($order_usuario_registro);
@@ -290,24 +275,6 @@ class TipoDocumentoList extends TPage
         {
 
             $filters[] = new TFilter('sigla', 'like', "%{$data->sigla}%");// create the filter 
-        }
-
-        if (isset($data->data_registro_ini) AND ( (is_scalar($data->data_registro_ini) AND $data->data_registro_ini !== '') OR (is_array($data->data_registro_ini) AND (!empty($data->data_registro_ini)) )) )
-        {
-
-            $filters[] = new TFilter('data_registro', '>=', $data->data_registro_ini);// create the filter 
-        }
-
-        if (isset($data->data_registro_fim) AND ( (is_scalar($data->data_registro_fim) AND $data->data_registro_fim !== '') OR (is_array($data->data_registro_fim) AND (!empty($data->data_registro_fim)) )) )
-        {
-
-            $filters[] = new TFilter('data_registro', '<=', $data->data_registro_fim);// create the filter 
-        }
-
-        if (isset($data->usuario_registro) AND ( (is_scalar($data->usuario_registro) AND $data->usuario_registro !== '') OR (is_array($data->usuario_registro) AND (!empty($data->usuario_registro)) )) )
-        {
-
-            $filters[] = new TFilter('usuario_registro', 'like', "%{$data->usuario_registro}%");// create the filter 
         }
 
         $param = array();

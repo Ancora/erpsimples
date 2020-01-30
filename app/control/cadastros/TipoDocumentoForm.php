@@ -50,7 +50,7 @@ class TipoDocumentoForm extends TPage
         $data_atualizacao->setEditable(false);
         $usuario_atualizacao->setEditable(false);
 
-        $id->setSize('100%');
+        $id->setSize(100);
         $sigla->setSize('100%');
         $descricao->setSize('100%');
         $data_registro->setSize('100%');
@@ -59,13 +59,13 @@ class TipoDocumentoForm extends TPage
         $usuario_atualizacao->setSize('100%');
 
         $row1 = $this->form->addFields([new TLabel("Código", '#ff0000', '14px', 'B', '100%'),$id],[new TLabel("Descrição", '#ff0000', '14px', 'B', '100%'),$descricao],[new TLabel("Sigla", '#ff0000', '14px', 'B', '100%'),$sigla]);
-        $row1->layout = [' col-sm-2','col-sm-6','col-sm-2'];
+        $row1->layout = [' col-sm-2',' col-sm-7','col-sm-2'];
 
         $row2 = $this->form->addFields([new TLabel("Cadastrado em", null, '14px', null, '100%'),$data_registro],[new TLabel("Cadastrado por", null, '14px', null, '100%'),$usuario_registro],[new TLabel("Atualizado em", null, '14px', null, '100%'),$data_atualizacao],[new TLabel("Atualizado por", null, '14px', null, '100%'),$usuario_atualizacao]);
         $row2->layout = [' col-sm-3',' col-sm-3',' col-sm-3',' col-sm-3'];
 
         // create the form actions
-        $btn_onsave = $this->form->addAction("Salvar", new TAction([$this, 'onSave']), 'far:save #ffffff');
+        $btn_onsave = $this->form->addAction("Salvar", new TAction([$this, 'onSave']), 'fas:save #ffffff');
         $btn_onsave->addStyleClass('btn-primary'); 
 
         $btn_onclear = $this->form->addAction("Limpar formulário", new TAction([$this, 'onClear']), 'fas:eraser #dd5a43');
@@ -74,7 +74,7 @@ class TipoDocumentoForm extends TPage
         $container = new TVBox;
         $container->style = 'width: 100%';
         $container->class = 'form-container';
-        // $container->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
+        $container->add(TBreadCrumb::create(["Cadastros","Cadastro de Tipos de Documentos"]));
         $container->add($this->form);
 
         parent::add($container);
@@ -129,7 +129,7 @@ class TipoDocumentoForm extends TPage
             $messageAction = new TAction(['className', 'methodName']);
             **/
 
-            $messageAction = new TAction(['TipoDocumento', 'onClear']);
+            $messageAction = new TAction(['TipoDocumentoForm', 'onClear']);
 
             new TMessage('info', AdiantiCoreTranslator::translate('Record saved'), $messageAction);
 
