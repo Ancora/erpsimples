@@ -85,6 +85,7 @@ class ProdutoList extends TPage
 
         $this->datagrid->style = 'width: 100%';
         $this->datagrid->setHeight(320);
+        $this->datagrid->datatable = 'true';
 
         $column_id = new TDataGridColumn('id', "Código", 'center');
         $column_descricao = new TDataGridColumn('descricao', "Descrição", 'left');

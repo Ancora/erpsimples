@@ -70,6 +70,7 @@ class GrupoList extends TPage
 
         $this->datagrid->style = 'width: 100%';
         $this->datagrid->setHeight(320);
+        $this->datagrid->datatable = 'true';
 
         $column_id = new TDataGridColumn('id', "Código", 'center' , '19%');
         $column_descricao = new TDataGridColumn('descricao', "Descrição", 'left' , '50%');

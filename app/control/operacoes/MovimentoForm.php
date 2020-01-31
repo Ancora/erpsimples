@@ -187,6 +187,7 @@ class MovimentoForm extends TPage
         $detailDatagrid = new TQuickGrid;
         $detailDatagrid->disableHtmlConversion();
         $this->produtos_movimento_movimento_list = new BootstrapDatagridWrapper($detailDatagrid);
+        $this->produtos_movimento_movimento_list->datatable = 'true';
         $this->produtos_movimento_movimento_list->style = 'width:100%';
         $this->produtos_movimento_movimento_list->class .= ' table-bordered';
         $this->produtos_movimento_movimento_list->disableDefaultClick();
@@ -315,7 +316,7 @@ class MovimentoForm extends TPage
         $container = new TVBox;
         $container->style = 'width: 100%';
         $container->class = 'form-container';
-        // $container->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
+        $container->add(TBreadCrumb::create(["Operações","Editar Movimento"]));
         $container->add($this->form);
 
         parent::add($container);

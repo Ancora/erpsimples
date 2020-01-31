@@ -80,13 +80,13 @@ class MovimentoList extends TPage
         $this->form->setData( TSession::getValue(__CLASS__.'_filter_data') );
 
         $btn_onsearch = $this->form->addAction("Buscar", new TAction([$this, 'onSearch']), 'fas:search #ffffff');
-        $btn_onsearch->addStyleClass('btn-primary'); 
+        $btn_onsearch->addStyleClass('btn-primary');
 
-        $btn_onexportcsv = $this->form->addAction("Exportar como CSV", new TAction([$this, 'onExportCsv']), 'far:file-alt #000000');
-        $btn_onexportcsv->addStyleClass('btn-info'); 
+        $btn_onexportcsv = $this->form->addAction("Exportar como CSV", new TAction([$this, 'onExportCsv']), 'far:file-alt #ffffff');
+        $btn_onexportcsv->addStyleClass('btn-info');
 
         $btn_onshow = $this->form->addAction("Cadastrar", new TAction(['MovimentoForm', 'onShow']), 'fas:plus #ffffff');
-        $btn_onshow->addStyleClass('btn-success'); 
+        $btn_onshow->addStyleClass('btn-success');
 
         // creates a Datagrid
         $this->datagrid = new TDataGrid;
@@ -96,6 +96,7 @@ class MovimentoList extends TPage
 
         $this->datagrid->style = 'width: 100%';
         $this->datagrid->setHeight(320);
+        $this->datagrid->datatable = 'true';
 
         $column_id = new TDataGridColumn('id', "Código", 'center' , '69.8px');
         $column_tipo_estoque = new TDataGridColumn('tipo_estoque', "Tipo Est", 'center');
@@ -105,11 +106,11 @@ class MovimentoList extends TPage
         $column_data_abertura_transformed = new TDataGridColumn('data_abertura', "Aberto em", 'center');
         $column_vlr_total_transformed = new TDataGridColumn('vlr_total', "Valor Total", 'right');
 
-        $column_vlr_total_transformed->setTotalFunction( function($values) { 
-            return array_sum((array) $values); 
-        }); 
+        $column_vlr_total_transformed->setTotalFunction( function($values) {
+            return array_sum((array) $values);
+        });
 
-        $column_data_abertura_transformed->setTransformer(function($value, $object, $row) 
+        $column_data_abertura_transformed->setTransformer(function($value, $object, $row)
         {
             if(!empty(trim($value)))
             {
@@ -125,7 +126,7 @@ class MovimentoList extends TPage
             }
         });
 
-        $column_vlr_total_transformed->setTransformer(function($value, $object, $row) 
+        $column_vlr_total_transformed->setTransformer(function($value, $object, $row)
         {
             if(!$value)
             {
@@ -140,7 +141,7 @@ class MovimentoList extends TPage
             {
                 return $value;
             }
-        });        
+        });
 
         $order_id = new TAction(array($this, 'onReload'));
         $order_id->setParameter('order', 'id');
@@ -206,7 +207,7 @@ class MovimentoList extends TPage
 
     }
 
-    public function onExportCsv($param = null) 
+    public function onExportCsv($param = null)
     {
         try
         {
@@ -218,9 +219,9 @@ class MovimentoList extends TPage
 
             if($filters = TSession::getValue(__CLASS__.'_filters'))
             {
-                foreach ($filters as $filter) 
+                foreach ($filters as $filter)
                 {
-                    $criteria->add($filter);       
+                    $criteria->add($filter);
                 }
             }
 
@@ -254,7 +255,7 @@ class MovimentoList extends TPage
             }
             else
             {
-                new TMessage('info', _t('No records found'));       
+                new TMessage('info', _t('No records found'));
             }
 
             TTransaction::close(); // close the transaction
@@ -265,8 +266,8 @@ class MovimentoList extends TPage
             TTransaction::rollback(); // undo all pending operations
         }
     }
-    public function onDelete($param = null) 
-    { 
+    public function onDelete($param = null)
+    {
         if(isset($param['delete']) && $param['delete'] == 1)
         {
             try
@@ -277,7 +278,7 @@ class MovimentoList extends TPage
                 TTransaction::open(self::$database);
 
                 // instantiates object
-                $object = new Movimento($key, FALSE); 
+                $object = new Movimento($key, FALSE);
 
                 // deletes the object from the database
                 $object->delete();
@@ -305,7 +306,7 @@ class MovimentoList extends TPage
             $action->setParameters($param); // pass the key paramseter ahead
             $action->setParameter('delete', 1);
             // shows a dialog to the user
-            new TQuestion(AdiantiCoreTranslator::translate('Do you really want to delete ?'), $action);   
+            new TQuestion(AdiantiCoreTranslator::translate('Do you really want to delete ?'), $action);
         }
     }
 
@@ -324,67 +325,67 @@ class MovimentoList extends TPage
         if (isset($data->id) AND ( (is_scalar($data->id) AND $data->id !== '') OR (is_array($data->id) AND (!empty($data->id)) )) )
         {
 
-            $filters[] = new TFilter('id', '=', $data->id);// create the filter 
+            $filters[] = new TFilter('id', '=', $data->id);// create the filter
         }
 
         if (isset($data->tipo_estoque) AND ( (is_scalar($data->tipo_estoque) AND $data->tipo_estoque !== '') OR (is_array($data->tipo_estoque) AND (!empty($data->tipo_estoque)) )) )
         {
 
-            $filters[] = new TFilter('tipo_estoque', '=', $data->tipo_estoque);// create the filter 
+            $filters[] = new TFilter('tipo_estoque', '=', $data->tipo_estoque);// create the filter
         }
 
         if (isset($data->tipo_movimento_id) AND ( (is_scalar($data->tipo_movimento_id) AND $data->tipo_movimento_id !== '') OR (is_array($data->tipo_movimento_id) AND (!empty($data->tipo_movimento_id)) )) )
         {
 
-            $filters[] = new TFilter('tipo_movimento_id', '=', $data->tipo_movimento_id);// create the filter 
+            $filters[] = new TFilter('tipo_movimento_id', '=', $data->tipo_movimento_id);// create the filter
         }
 
         if (isset($data->situacao_id) AND ( (is_scalar($data->situacao_id) AND $data->situacao_id !== '') OR (is_array($data->situacao_id) AND (!empty($data->situacao_id)) )) )
         {
 
-            $filters[] = new TFilter('situacao_id', '=', $data->situacao_id);// create the filter 
+            $filters[] = new TFilter('situacao_id', '=', $data->situacao_id);// create the filter
         }
 
         if (isset($data->pessoa_id) AND ( (is_scalar($data->pessoa_id) AND $data->pessoa_id !== '') OR (is_array($data->pessoa_id) AND (!empty($data->pessoa_id)) )) )
         {
 
-            $filters[] = new TFilter('pessoa_id', '=', $data->pessoa_id);// create the filter 
+            $filters[] = new TFilter('pessoa_id', '=', $data->pessoa_id);// create the filter
         }
 
         if (isset($data->data_abertura_ini) AND ( (is_scalar($data->data_abertura_ini) AND $data->data_abertura_ini !== '') OR (is_array($data->data_abertura_ini) AND (!empty($data->data_abertura_ini)) )) )
         {
 
-            $filters[] = new TFilter('data_abertura', '>=', $data->data_abertura_ini);// create the filter 
+            $filters[] = new TFilter('data_abertura', '>=', $data->data_abertura_ini);// create the filter
         }
 
         if (isset($data->data_abertura_fim) AND ( (is_scalar($data->data_abertura_fim) AND $data->data_abertura_fim !== '') OR (is_array($data->data_abertura_fim) AND (!empty($data->data_abertura_fim)) )) )
         {
 
-            $filters[] = new TFilter('data_abertura', '<=', $data->data_abertura_fim);// create the filter 
+            $filters[] = new TFilter('data_abertura', '<=', $data->data_abertura_fim);// create the filter
         }
 
         if (isset($data->vlr_total_ini) AND ( (is_scalar($data->vlr_total_ini) AND $data->vlr_total_ini !== '') OR (is_array($data->vlr_total_ini) AND (!empty($data->vlr_total_ini)) )) )
         {
 
-            $filters[] = new TFilter('vlr_total', '>=', $data->vlr_total_ini);// create the filter 
+            $filters[] = new TFilter('vlr_total', '>=', $data->vlr_total_ini);// create the filter
         }
 
         if (isset($data->vlr_total_fim) AND ( (is_scalar($data->vlr_total_fim) AND $data->vlr_total_fim !== '') OR (is_array($data->vlr_total_fim) AND (!empty($data->vlr_total_fim)) )) )
         {
 
-            $filters[] = new TFilter('vlr_total', '<=', $data->vlr_total_fim);// create the filter 
+            $filters[] = new TFilter('vlr_total', '<=', $data->vlr_total_fim);// create the filter
         }
 
         if (isset($data->data_entrega_ini) AND ( (is_scalar($data->data_entrega_ini) AND $data->data_entrega_ini !== '') OR (is_array($data->data_entrega_ini) AND (!empty($data->data_entrega_ini)) )) )
         {
 
-            $filters[] = new TFilter('data_entrega', '>=', $data->data_entrega_ini);// create the filter 
+            $filters[] = new TFilter('data_entrega', '>=', $data->data_entrega_ini);// create the filter
         }
 
         if (isset($data->data_entrega_fim) AND ( (is_scalar($data->data_entrega_fim) AND $data->data_entrega_fim !== '') OR (is_array($data->data_entrega_fim) AND (!empty($data->data_entrega_fim)) )) )
         {
 
-            $filters[] = new TFilter('data_entrega', '<=', $data->data_entrega_fim);// create the filter 
+            $filters[] = new TFilter('data_entrega', '<=', $data->data_entrega_fim);// create the filter
         }
 
         $param = array();
@@ -419,7 +420,7 @@ class MovimentoList extends TPage
 
             if (empty($param['order']))
             {
-                $param['order'] = 'id';    
+                $param['order'] = 'id';
             }
 
             if (empty($param['direction']))
@@ -432,9 +433,9 @@ class MovimentoList extends TPage
 
             if($filters = TSession::getValue(__CLASS__.'_filters'))
             {
-                foreach ($filters as $filter) 
+                foreach ($filters as $filter)
                 {
-                    $criteria->add($filter);       
+                    $criteria->add($filter);
                 }
             }
 
