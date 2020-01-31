@@ -9,6 +9,7 @@
  * @copyright  Copyright (c) 2006 Adianti Solutions Ltd. (http://www.adianti.com.br)
  * @license    http://www.adianti.com.br/framework-license
  */
+
 class LoginForm extends TPage
 {
     protected $form; // form
@@ -26,11 +27,15 @@ class LoginForm extends TPage
         $this->style = 'clear:both';
         // creates the form
         $this->form = new BootstrapFormBuilder('form_login');
-        $this->form->setFormTitle( 'Acesso restrito' );
+        $this->form->setFormTitle( 'Acesso ao sistema' );
 
         // create the form fields
         $login = new TEntry('login');
         $password = new TPassword('password');
+
+        /* ReCaptcha v3 */
+        $captcha =  '<div class="g-recaptcha" data-sitekey="6Lfu8sUUAAAAAIAnfZFrXveL2nEVujDLmhI5dHvD"></div>';
+        /* --- */
 
         // define the sizes
         $login->setSize('70%', 40);
