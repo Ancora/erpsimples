@@ -83,12 +83,12 @@ class PessoaList extends TPage
         $this->datagrid->style = 'width: 100%';
         $this->datagrid->setHeight(320);
 
-        $column_id = new TDataGridColumn('id', "Código", 'center' , '40px');
-        $column_nome = new TDataGridColumn('nome', "Descrição", 'left' , '50%');
-        $column_tipo_pessoa_transformed = new TDataGridColumn('tipo_pessoa', "Tipo", 'left' , '14%');
-        $column_ativo_transformed = new TDataGridColumn('ativo', "Ativo", 'center' , '10%');
-        $column_data_registro_transformed = new TDataGridColumn('data_registro', "Data do Cadastro", 'center' , '18%');
-        $column_usuario_registro = new TDataGridColumn('usuario_registro', "Usuário", 'left' , '10%');
+        $column_id = new TDataGridColumn('id', "Código", 'center');
+        $column_nome = new TDataGridColumn('nome', "Descrição", 'left');
+        $column_tipo_pessoa_transformed = new TDataGridColumn('tipo_pessoa', "Tipo", 'left');
+        $column_ativo_transformed = new TDataGridColumn('ativo', "Ativo", 'center');
+        $column_data_registro_transformed = new TDataGridColumn('data_registro', "Cadastrado em", 'center');
+        $column_usuario_registro = new TDataGridColumn('usuario_registro', "Usuário", 'left');
 
         $column_tipo_pessoa_transformed->setTransformer(function($value, $object, $row)
         {

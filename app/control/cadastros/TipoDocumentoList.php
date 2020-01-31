@@ -43,9 +43,11 @@ class TipoDocumentoList extends TPage
         $btn_onsearch = $this->form->addAction("Buscar", new TAction([$this, 'onSearch']), 'fas:search #ffffff');
         $btn_onsearch->addStyleClass('btn-primary'); 
 
-        $btn_onexportcsv = $this->form->addAction("Exportar como CSV", new TAction([$this, 'onExportCsv']), 'far:file-alt #000000');
+        $btn_onexportcsv = $this->form->addAction("Exportar como CSV", new TAction([$this, 'onExportCsv']), 'far:file-alt #ffffff');
+        $btn_onexportcsv->addStyleClass('btn-info'); 
 
-        $btn_onshow = $this->form->addAction("Cadastrar", new TAction(['TipoDocumentoForm', 'onShow']), 'fas:plus #69aa46');
+        $btn_onshow = $this->form->addAction("Cadastrar", new TAction(['TipoDocumentoForm', 'onShow']), 'fas:plus #ffffff');
+        $btn_onshow->addStyleClass('btn-success'); 
 
         // creates a Datagrid
         $this->datagrid = new TDataGrid;
@@ -60,7 +62,7 @@ class TipoDocumentoList extends TPage
         $column_descricao = new TDataGridColumn('descricao', "Descrição", 'left');
         $column_sigla = new TDataGridColumn('sigla', "Sigla", 'center');
         $column_data_registro_transformed = new TDataGridColumn('data_registro', "Cadastrado em", 'center');
-        $column_usuario_registro = new TDataGridColumn('usuario_registro', "Cadastrado por", 'left');
+        $column_usuario_registro = new TDataGridColumn('usuario_registro', "Usuário", 'left');
 
         $column_data_registro_transformed->setTransformer(function($value, $object, $row) 
         {

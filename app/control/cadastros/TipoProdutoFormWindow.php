@@ -38,11 +38,8 @@ class TipoProdutoFormWindow extends TWindow
         $sigla->setSize('100%');
         $descricao->setSize('100%');
 
-        $row1 = $this->form->addFields([new TLabel("Tipo", '#ff0000', '14px', 'B', '100%'),$descricao],[$oculto]);
-        $row1->layout = [' col-sm-4','col-sm-2'];
-
-        $row2 = $this->form->addFields([new TLabel("Sigla", '#ff0000', '14px', 'B', '100%'),$sigla]);
-        $row2->layout = [' col-sm-2'];
+        $row1 = $this->form->addFields([new TLabel("Tipo", '#ff0000', '14px', 'B', '100%'),$descricao],[$oculto],[new TLabel("Sigla", '#ff0000', '14px', 'B', '100%'),$sigla]);
+        $row1->layout = [' col-sm-4','col-sm-2','col-sm-2'];
 
         // create the form actions
         $btn_onsave = $this->form->addAction("Salvar", new TAction([$this, 'onSave']), 'far:save #ffffff');

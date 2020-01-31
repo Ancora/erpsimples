@@ -28,13 +28,12 @@ class ProdutoForm extends TPage
         $button_ = new TButton('button_');
         $ativo = new TCombo('ativo');
         $pessoa_id = new TDBCombo('pessoa_id', 'ancor907_erpsimples', 'Pessoa', 'id', '{nome}','nome asc'  );
-        $button_1 = new TButton('button_1');
         $descricao = new TEntry('descricao');
         $codigo_barras = new TEntry('codigo_barras');
         $estoque_minimo = new TNumeric('estoque_minimo', '2', ',', '.' );
         $estoque_maximo = new TNumeric('estoque_maximo', '2', ',', '.' );
         $medida_id = new TDBCombo('medida_id', 'ancor907_erpsimples', 'Medida', 'id', '{descricao}','descricao asc'  );
-        $button_2 = new TButton('button_2');
+        $button_1 = new TButton('button_1');
         $obs = new TText('obs');
         $data_registro = new TDateTime('data_registro');
         $usuario_registro = new TEntry('usuario_registro');
@@ -51,23 +50,20 @@ class ProdutoForm extends TPage
 
         $tipo_produto_id->autofocus = 'autofocus';
 
+        $button_1->setAction(new TAction(['MedidaFormWindow', 'onEdit'],['oculto' => 'medida_id']), "");
+        $button_->setAction(new TAction(['TipoProdutoFormWindow', 'onEdit'],['oculto' => 'tipo_produto_id']), "");
+
+        $button_->addStyleClass('btn-success');
+        $button_1->addStyleClass('btn-success');
+
+        $button_->setImage('fas:plus #ffffff');
+        $button_1->setImage('fas:plus #ffffff');
+
         $data_registro->setMask('dd/mm/yyyy hh:ii');
         $data_atualizacao->setMask('dd/mm/yyyy hh:ii');
 
         $data_registro->setDatabaseMask('yyyy-mm-dd hh:ii');
         $data_atualizacao->setDatabaseMask('yyyy-mm-dd hh:ii');
-
-        $button_2->setAction(new TAction(['MedidaFormWindow', 'onEdit'],['oculto' => 'medida_id']), "");
-        $button_1->setAction(new TAction(['PessoaFormWindow', 'onEdit'],['oculto' => 'pessoa_id']), "");
-        $button_->setAction(new TAction(['TipoProdutoFormWindow', 'onEdit'],['oculto' => 'tipo_produto_id']), "");
-
-        $button_->addStyleClass('btn-success');
-        $button_1->addStyleClass('btn-success');
-        $button_2->addStyleClass('btn-success');
-
-        $button_->setImage('fas:plus #ffffff');
-        $button_1->setImage('fas:plus #ffffff');
-        $button_2->setImage('fas:plus #ffffff');
 
         $id->setEditable(false);
         $data_registro->setEditable(false);
@@ -78,8 +74,8 @@ class ProdutoForm extends TPage
         $id->setSize('100%');
         $ativo->setSize('70%');
         $obs->setSize('100%', 70);
-        $pessoa_id->setSize('85%');
         $medida_id->setSize('80%');
+        $pessoa_id->setSize('100%');
         $descricao->setSize('100%');
         $codigo_barras->setSize('100%');
         $estoque_minimo->setSize('70%');
@@ -93,13 +89,13 @@ class ProdutoForm extends TPage
         $row1 = $this->form->addFields([new TLabel("Código", null, '14px', null, '100%'),$id],[new TLabel("Tipo", '#ff0000', '14px', 'B', '100%'),$tipo_produto_id,$button_],[new TLabel("Ativo", null, '14px', null, '100%'),$ativo]);
         $row1->layout = [' col-sm-2',' col-sm-4','col-sm-2'];
 
-        $row2 = $this->form->addFields([new TLabel("Fabricante", null, '14px', null, '100%'),$pessoa_id,$button_1],[]);
-        $row2->layout = [' col-sm-6',' col-sm-2'];
+        $row2 = $this->form->addFields([new TLabel("Fabricante", null, '14px', null, '100%'),$pessoa_id]);
+        $row2->layout = [' col-sm-6'];
 
         $row3 = $this->form->addFields([new TLabel("Descrição", '#ff0000', '14px', 'B', '100%'),$descricao],[new TLabel("Código de Barras", null, '14px', null, '100%'),$codigo_barras]);
         $row3->layout = [' col-sm-7',' col-sm-4'];
 
-        $row4 = $this->form->addFields([new TLabel("Estoque Mínimo", null, '14px', null, '100%'),$estoque_minimo],[new TLabel("Estoque Máximo", null, '14px', null, '100%'),$estoque_maximo],[new TLabel("Unidade de Medida", '#ff0000', '14px', 'B', '100%'),$medida_id,$button_2]);
+        $row4 = $this->form->addFields([new TLabel("Estoque Mínimo", null, '14px', null, '100%'),$estoque_minimo],[new TLabel("Estoque Máximo", null, '14px', null, '100%'),$estoque_maximo],[new TLabel("Unidade de Medida", '#ff0000', '14px', 'B', '100%'),$medida_id,$button_1]);
         $row4->layout = [' col-sm-2',' col-sm-2',' col-sm-5'];
 
         $row5 = $this->form->addFields([new TLabel("Observação", null, '14px', null, '100%'),$obs]);

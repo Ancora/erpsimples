@@ -86,13 +86,13 @@ class ProdutoList extends TPage
         $this->datagrid->style = 'width: 100%';
         $this->datagrid->setHeight(320);
 
-        $column_id = new TDataGridColumn('id', "Código", 'center' , '69.8px');
+        $column_id = new TDataGridColumn('id', "Código", 'center');
         $column_descricao = new TDataGridColumn('descricao', "Descrição", 'left');
         $column_tipo_produto_descricao = new TDataGridColumn('tipo_produto->descricao', "Tipo", 'left');
         $column_ativo_transformed = new TDataGridColumn('ativo', "Ativo", 'left');
         $column_pessoa_nome = new TDataGridColumn('pessoa->nome', "Fabricante", 'left');
         $column_medida_descricao = new TDataGridColumn('medida->descricao', "Unid de Med", 'left');
-        $column_data_registro_transformed = new TDataGridColumn('data_registro', "Dt Cadastro", 'left');
+        $column_data_registro_transformed = new TDataGridColumn('data_registro', "Cadastrado em", 'left');
         $column_usuario_registro = new TDataGridColumn('usuario_registro', "Usuário", 'left');
 
         $column_ativo_transformed->setTransformer(function($value, $object, $row)
