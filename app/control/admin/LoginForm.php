@@ -33,10 +33,6 @@ class LoginForm extends TPage
         $login = new TEntry('login');
         $password = new TPassword('password');
 
-        /* ReCaptcha v3 */
-        $captcha =  '<div class="g-recaptcha" data-sitekey="6Lfu8sUUAAAAAIAnfZFrXveL2nEVujDLmhI5dHvD"></div>';
-        /* --- */
-
         // define the sizes
         $login->setSize('70%', 40);
         $password->setSize('70%', 40);

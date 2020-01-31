@@ -142,3 +142,43 @@
 [30-Jan-2020 23:51:46 America/Sao_Paulo] PHP   6. Adianti\Core\AdiantiCoreLoader::autoload() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreApplication.php:62
 [30-Jan-2020 23:51:46 America/Sao_Paulo] PHP   7. Adianti\Core\AdiantiApplicationLoader::autoload() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreLoader.php:78
 [30-Jan-2020 23:51:46 America/Sao_Paulo] PHP   8. require_once() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiApplicationLoader.php:82
+[31-Jan-2020 00:57:37 America/Sao_Paulo] PHP Warning:  Attempt to assign property 'style' of non-object in C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\app\control\admin\LoginForm.php on line 48
+[31-Jan-2020 00:57:37 America/Sao_Paulo] PHP Stack trace:
+[31-Jan-2020 00:57:37 America/Sao_Paulo] PHP   1. {main}() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php:0
+[31-Jan-2020 00:57:37 America/Sao_Paulo] PHP   2. TApplication::run() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php:74
+[31-Jan-2020 00:57:37 America/Sao_Paulo] PHP   3. Adianti\Core\AdiantiCoreApplication::run() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php:36
+[31-Jan-2020 00:57:37 America/Sao_Paulo] PHP   4. LoginForm->__construct() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreApplication.php:80
+[31-Jan-2020 00:59:04 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Class 'ReCaptcha\ReCaptcha' not found in C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\app\control\admin\LoginForm.php:40
+Stack trace:
+#0 C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreApplication.php(80): LoginForm->__construct(Array)
+#1 C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php(36): Adianti\Core\AdiantiCoreApplication::run('0')
+#2 C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php(74): TApplication::run()
+#3 {main}
+  thrown in C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\app\control\admin\LoginForm.php on line 40
+[31-Jan-2020 01:00:33 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Class 'ReCaptcha\ReCaptcha' not found in C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\app\control\admin\LoginForm.php:47
+Stack trace:
+#0 C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreApplication.php(80): LoginForm->__construct(Array)
+#1 C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php(36): Adianti\Core\AdiantiCoreApplication::run('0')
+#2 C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php(74): TApplication::run()
+#3 {main}
+  thrown in C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\app\control\admin\LoginForm.php on line 47
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP Warning:  require(vendor/google/recaptcha/src/autoload.php): failed to open stream: No such file or directory in C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\app\control\admin\LoginForm.php on line 14
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP Stack trace:
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   1. {main}() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php:0
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   2. TApplication::run() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php:74
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   3. Adianti\Core\AdiantiCoreApplication::run() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php:36
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   4. class_exists() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreApplication.php:62
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   5. spl_autoload_call() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreApplication.php:62
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   6. Adianti\Core\AdiantiCoreLoader::autoload() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreApplication.php:62
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   7. Adianti\Core\AdiantiApplicationLoader::autoload() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreLoader.php:78
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   8. require_once() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiApplicationLoader.php:82
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP Fatal error:  require(): Failed opening required 'vendor/google/recaptcha/src/autoload.php' (include_path='C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\vendor/pablodalloglio/ole;C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\vendor/pablodalloglio/spreadsheet_excel_writer;.;C:\php\pear') in C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\app\control\admin\LoginForm.php on line 14
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP Stack trace:
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   1. {main}() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php:0
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   2. TApplication::run() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php:74
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   3. Adianti\Core\AdiantiCoreApplication::run() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\engine.php:36
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   4. class_exists() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreApplication.php:62
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   5. spl_autoload_call() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreApplication.php:62
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   6. Adianti\Core\AdiantiCoreLoader::autoload() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreApplication.php:62
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   7. Adianti\Core\AdiantiApplicationLoader::autoload() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiCoreLoader.php:78
+[31-Jan-2020 01:00:58 America/Sao_Paulo] PHP   8. require_once() C:\wamp64319\www\ancora-ti.com.br\demos\adianti\erpsimples\lib\adianti\core\AdiantiApplicationLoader.php:82
