@@ -648,7 +648,7 @@ class MovimentoForm extends TPage
             }
             $produtos_movimento_movimento_items = TSession::getValue('produtos_movimento_movimento_items');
 
-            /* AQUI: salvar Situação escolhida */
+            /* Customização Âncora: salvar Situação escolhida */
             if (!$produtos_movimento_movimento_items) {
                 $obj = new stdClass();
                 $obj->situacao_op = $param['situacao_id'];
@@ -841,7 +841,7 @@ class MovimentoForm extends TPage
 
     public function fireEvents( $object )
     {
-        /* AQUI: recuperar Situação escolhida */
+        /* Customização Âncora: recuperar Situação escolhida */
         $object->situacao_id = TSession::getValue('situacao_op');
         /* --- */
         $obj = new stdClass;
