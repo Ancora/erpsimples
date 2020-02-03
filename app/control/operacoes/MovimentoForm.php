@@ -351,19 +351,6 @@ class MovimentoForm extends TPage
                     $options[ $tipo->id ] = $tipo->descricao;
                 }
             }
-/* AQUI */
-            /* $objMaster = new Movimento();
-            $countObjMaster = Movimento::count();
-            $nextObjMaster = $countObjMaster + 1;
-
-            $objDetails = new ProdutosMovimento($nextObjMaster);
-
-            if ($objDetails->id == 0) {
-                $obj = new stdClass();
-                $obj->situacao_op = $param['situacao_id'];
-                TSession::setValue('situacao_op', $obj->situacao_op);
-                $objDetails->id = 1;
-            } */
 
             TTransaction::close();
 
@@ -546,8 +533,7 @@ class MovimentoForm extends TPage
             // To define an action to be executed on the message close event:
             $messageAction = new TAction(['className', 'methodName']);
             **/
-/* AQUI */
-            //$messageAction = new TAction(['MovimentoForm', 'onClear']);
+            $messageAction = new TAction(['MovimentoForm', 'onClear']);
 
             new TMessage('info', AdiantiCoreTranslator::translate('Record saved'), $messageAction);
 
@@ -660,14 +646,15 @@ class MovimentoForm extends TPage
             {
                 throw new Exception(AdiantiCoreTranslator::translate('The field ^1 is required', "Valor Unitário"));
             }
-/* AQUI */
             $produtos_movimento_movimento_items = TSession::getValue('produtos_movimento_movimento_items');
 
+            /* AQUI: salvar Situação escolhida */
             if (!$produtos_movimento_movimento_items) {
                 $obj = new stdClass();
                 $obj->situacao_op = $param['situacao_id'];
                 TSession::setValue('situacao_op', $obj->situacao_op);
             }
+            /* --- */
 
             $key = isset($data->produtos_movimento_movimento_id) && $data->produtos_movimento_movimento_id ? $data->produtos_movimento_movimento_id : uniqid();
             $fields = [];
@@ -697,19 +684,8 @@ class MovimentoForm extends TPage
             $data->produtos_movimento_movimento_data_validade = '';
             $data->produtos_movimento_movimento_vlr_icms = '';
             $data->produtos_movimento_movimento_vlr_ipi = '';
-/* AQUI */
-            $data->situacao_id = TSession::getValue('situacao_op');
             $this->form->setData($data);
-            echo '<pre>';
-            var_dump($data);
-            echo '</pre>';
             $this->fireEvents($data);
-            echo '<pre>';
-            var_dump($data);
-            echo '</pre>';
-            echo '<pre>';
-            var_dump($param);
-            echo '</pre>';
 
             $this->onReload( $param );
         }
@@ -865,6 +841,9 @@ class MovimentoForm extends TPage
 
     public function fireEvents( $object )
     {
+        /* AQUI: recuperar Situação escolhida */
+        $object->situacao_id = TSession::getValue('situacao_op');
+        /* --- */
         $obj = new stdClass;
         if(is_object($object) && get_class($object) == 'stdClass')
         {
