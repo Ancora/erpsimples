@@ -7,7 +7,7 @@ class FormaList extends TPage
     private $pageNavigation;
     private $loaded;
     private $filter_criteria;
-    private static $database = 'ancor907_erpsimples';
+    private static $database = 'ancorati_erpsimplesHS';
     private static $activeRecord = 'Forma';
     private static $primaryKey = 'id';
     private static $formName = 'formList_Forma';
@@ -39,13 +39,13 @@ class FormaList extends TPage
         $this->form->setData( TSession::getValue(__CLASS__.'_filter_data') );
 
         $btn_onsearch = $this->form->addAction("Buscar", new TAction([$this, 'onSearch']), 'fas:search #ffffff');
-        $btn_onsearch->addStyleClass('btn-primary'); 
+        $btn_onsearch->addStyleClass('btn-primary');
 
         $btn_onexportcsv = $this->form->addAction("Exportar como CSV", new TAction([$this, 'onExportCsv']), 'far:file-alt #ffffff');
-        $btn_onexportcsv->addStyleClass('btn-info'); 
+        $btn_onexportcsv->addStyleClass('btn-info');
 
         $btn_onshow = $this->form->addAction("Cadastrar", new TAction(['FormaForm', 'onShow']), 'fas:plus #ffffff');
-        $btn_onshow->addStyleClass('btn-success'); 
+        $btn_onshow->addStyleClass('btn-success');
 
         // creates a Datagrid
         $this->datagrid = new TDataGrid;
@@ -110,7 +110,7 @@ class FormaList extends TPage
 
     }
 
-    public function onExportCsv($param = null) 
+    public function onExportCsv($param = null)
     {
         try
         {
@@ -122,9 +122,9 @@ class FormaList extends TPage
 
             if($filters = TSession::getValue(__CLASS__.'_filters'))
             {
-                foreach ($filters as $filter) 
+                foreach ($filters as $filter)
                 {
-                    $criteria->add($filter);       
+                    $criteria->add($filter);
                 }
             }
 
@@ -158,7 +158,7 @@ class FormaList extends TPage
             }
             else
             {
-                new TMessage('info', _t('No records found'));       
+                new TMessage('info', _t('No records found'));
             }
 
             TTransaction::close(); // close the transaction
@@ -170,8 +170,8 @@ class FormaList extends TPage
         }
     }
 
-    public function onDelete($param = null) 
-    { 
+    public function onDelete($param = null)
+    {
         if(isset($param['delete']) && $param['delete'] == 1)
         {
             try
@@ -182,7 +182,7 @@ class FormaList extends TPage
                 TTransaction::open(self::$database);
 
                 // instantiates object
-                $object = new Forma($key, FALSE); 
+                $object = new Forma($key, FALSE);
 
                 // deletes the object from the database
                 $object->delete();
@@ -210,7 +210,7 @@ class FormaList extends TPage
             $action->setParameters($param); // pass the key paramseter ahead
             $action->setParameter('delete', 1);
             // shows a dialog to the user
-            new TQuestion(AdiantiCoreTranslator::translate('Do you really want to delete ?'), $action);   
+            new TQuestion(AdiantiCoreTranslator::translate('Do you really want to delete ?'), $action);
         }
     }
 
@@ -229,13 +229,13 @@ class FormaList extends TPage
         if (isset($data->id) AND ( (is_scalar($data->id) AND $data->id !== '') OR (is_array($data->id) AND (!empty($data->id)) )) )
         {
 
-            $filters[] = new TFilter('id', '=', $data->id);// create the filter 
+            $filters[] = new TFilter('id', '=', $data->id);// create the filter
         }
 
         if (isset($data->descricao) AND ( (is_scalar($data->descricao) AND $data->descricao !== '') OR (is_array($data->descricao) AND (!empty($data->descricao)) )) )
         {
 
-            $filters[] = new TFilter('descricao', 'like', "%{$data->descricao}%");// create the filter 
+            $filters[] = new TFilter('descricao', 'like', "%{$data->descricao}%");// create the filter
         }
 
         $param = array();
@@ -259,7 +259,7 @@ class FormaList extends TPage
     {
         try
         {
-            // open a transaction with database 'ancor907_erpsimples'
+            // open a transaction with database 'ancorati_erpsimplesHS'
             TTransaction::open(self::$database);
 
             // creates a repository for Forma
@@ -270,7 +270,7 @@ class FormaList extends TPage
 
             if (empty($param['order']))
             {
-                $param['order'] = 'id';    
+                $param['order'] = 'id';
             }
 
             if (empty($param['direction']))
@@ -283,9 +283,9 @@ class FormaList extends TPage
 
             if($filters = TSession::getValue(__CLASS__.'_filters'))
             {
-                foreach ($filters as $filter) 
+                foreach ($filters as $filter)
                 {
-                    $criteria->add($filter);       
+                    $criteria->add($filter);
                 }
             }
 

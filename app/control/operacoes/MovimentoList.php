@@ -7,7 +7,7 @@ class MovimentoList extends TPage
     private $pageNavigation;
     private $loaded;
     private $filter_criteria;
-    private static $database = 'ancor907_erpsimples';
+    private static $database = 'ancorati_erpsimplesHS';
     private static $activeRecord = 'Movimento';
     private static $primaryKey = 'id';
     private static $formName = 'formList_Movimento';
@@ -28,9 +28,9 @@ class MovimentoList extends TPage
 
         $id = new TEntry('id');
         $tipo_estoque = new TCombo('tipo_estoque');
-        $tipo_movimento_id = new TDBCombo('tipo_movimento_id', 'ancor907_erpsimples', 'TipoMovimento', 'id', '{descricao}','descricao asc'  );
-        $situacao_id = new TDBCombo('situacao_id', 'ancor907_erpsimples', 'Situacao', 'id', '{descricao}','descricao asc'  );
-        $pessoa_id = new TDBUniqueSearch('pessoa_id', 'ancor907_erpsimples', 'Pessoa', 'id', 'nome','nome asc'  );
+        $tipo_movimento_id = new TDBCombo('tipo_movimento_id', 'ancorati_erpsimplesHS', 'TipoMovimento', 'id', '{descricao}','descricao asc'  );
+        $situacao_id = new TDBCombo('situacao_id', 'ancorati_erpsimplesHS', 'Situacao', 'id', '{descricao}','descricao asc'  );
+        $pessoa_id = new TDBUniqueSearch('pessoa_id', 'ancorati_erpsimplesHS', 'Pessoa', 'id', 'nome','nome asc'  );
         $data_abertura_ini = new TDate('data_abertura_ini');
         $data_abertura_fim = new TDate('data_abertura_fim');
         $vlr_total_ini = new TNumeric('vlr_total_ini', '2', ',', '.' );
@@ -409,7 +409,7 @@ class MovimentoList extends TPage
     {
         try
         {
-            // open a transaction with database 'ancor907_erpsimples'
+            // open a transaction with database 'ancorati_erpsimplesHS'
             TTransaction::open(self::$database);
 
             // creates a repository for Movimento

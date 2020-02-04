@@ -4,7 +4,7 @@ class CidadeFormWindow extends TWindow
 {
     protected $form;
     private $formFields = [];
-    private static $database = 'ancor907_erpsimples';
+    private static $database = 'ancorati_erpsimplesHS';
     private static $activeRecord = 'Cidade';
     private static $primaryKey = 'id';
     private static $formName = 'form_Cidade';
@@ -28,9 +28,9 @@ class CidadeFormWindow extends TWindow
 
         $descricao = new TEntry('descricao');
         $oculto = new THidden('oculto');
-        $uf_id = new TDBCombo('uf_id', 'ancor907_erpsimples', 'Uf', 'id', '{descricao}','descricao asc'  );
+        $uf_id = new TDBCombo('uf_id', 'ancorati_erpsimplesHS', 'Uf', 'id', '{descricao}','descricao asc'  );
 
-        $uf_id->addValidation("Uf id", new TRequiredValidator()); 
+        $uf_id->addValidation("Uf id", new TRequiredValidator());
 
         $oculto->setSize(200);
         $uf_id->setSize('70%');
@@ -41,7 +41,7 @@ class CidadeFormWindow extends TWindow
 
         // create the form actions
         $btn_onsave = $this->form->addAction("Salvar", new TAction([$this, 'onSave']), 'far:save #ffffff');
-        $btn_onsave->addStyleClass('btn-primary'); 
+        $btn_onsave->addStyleClass('btn-primary');
 
         $btn_onclear = $this->form->addAction("Limpar formulário", new TAction([$this, 'onClear']), 'fas:eraser #dd5a43');
 
@@ -49,7 +49,7 @@ class CidadeFormWindow extends TWindow
 
     }
 
-    public function onSave($param = null) 
+    public function onSave($param = null)
     {
         try
         {
@@ -65,15 +65,15 @@ class CidadeFormWindow extends TWindow
 
             $this->form->validate(); // validate form data
 
-            $object = new Cidade(); // create an empty object 
+            $object = new Cidade(); // create an empty object
 
             $data = $this->form->getData(); // get form data as array
             $object->fromArray( (array) $data); // load the object with data
 
-            $object->store(); // save the object 
+            $object->store(); // save the object
 
             // get the generated {PRIMARY_KEY}
-            $data->id = $object->id; 
+            $data->id = $object->id;
 
             $this->form->setData($data); // fill form data
             TTransaction::close(); // close the transaction
@@ -91,12 +91,12 @@ class CidadeFormWindow extends TWindow
                TCombo::reload('', $data->oculto, $items);
             }
 
-                TWindow::closeWindow(parent::getId()); 
+                TWindow::closeWindow(parent::getId());
 
         }
         catch (Exception $e) // in case of exception
         {
-            //</catchAutoCode> 
+            //</catchAutoCode>
 
             new TMessage('error', $e->getMessage()); // shows the exception error message
             $this->form->setData( $this->form->getData() ); // keep form data
@@ -113,11 +113,11 @@ class CidadeFormWindow extends TWindow
                 $key = $param['key'];  // get the parameter $key
                 TTransaction::open(self::$database); // open a transaction
 
-                $object = new Cidade($key); // instantiates the Active Record 
+                $object = new Cidade($key); // instantiates the Active Record
 
-                $this->form->setData($object); // fill the form 
+                $this->form->setData($object); // fill the form
 
-                TTransaction::close(); // close the transaction 
+                TTransaction::close(); // close the transaction
             }
             else
             {
@@ -126,7 +126,7 @@ class CidadeFormWindow extends TWindow
                 if (!empty($param['oculto'])) {
                    $object = new stdClass;
                    $object->oculto = $param['oculto'];
-                   $this->form->setData($object); 
+                   $this->form->setData($object);
                 }
             }
         }
@@ -150,7 +150,7 @@ class CidadeFormWindow extends TWindow
     public function onShow($param = null)
     {
 
-    } 
+    }
 
 }
 

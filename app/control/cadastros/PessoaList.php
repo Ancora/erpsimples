@@ -7,7 +7,7 @@ class PessoaList extends TPage
     private $pageNavigation;
     private $loaded;
     private $filter_criteria;
-    private static $database = 'ancor907_erpsimples';
+    private static $database = 'ancorati_erpsimplesHS';
     private static $activeRecord = 'Pessoa';
     private static $primaryKey = 'id';
     private static $formName = 'formList_Pessoa';
@@ -66,13 +66,13 @@ class PessoaList extends TPage
         $this->form->setData( TSession::getValue(__CLASS__.'_filter_data') );
 
         $btn_onsearch = $this->form->addAction("Buscar", new TAction([$this, 'onSearch']), 'fas:search #ffffff');
-        $btn_onsearch->addStyleClass('btn-primary'); 
+        $btn_onsearch->addStyleClass('btn-primary');
 
         $btn_onexportcsv = $this->form->addAction("Exportar como CSV", new TAction([$this, 'onExportCsv']), 'far:file-alt #ffffff');
-        $btn_onexportcsv->addStyleClass('btn-info'); 
+        $btn_onexportcsv->addStyleClass('btn-info');
 
         $btn_onshow = $this->form->addAction("Cadastrar", new TAction(['PessoaForm', 'onShow']), 'fas:plus #ffffff');
-        $btn_onshow->addStyleClass('btn-success'); 
+        $btn_onshow->addStyleClass('btn-success');
 
         // creates a Datagrid
         $this->datagrid = new TDataGrid;
@@ -129,7 +129,7 @@ class PessoaList extends TPage
                     return $value;
                 }
             }
-        });        
+        });
 
         $order_id = new TAction(array($this, 'onReload'));
         $order_id->setParameter('order', 'id');
@@ -209,7 +209,7 @@ class PessoaList extends TPage
 
     }
 
-    public function onExportCsv($param = null) 
+    public function onExportCsv($param = null)
     {
         try
         {
@@ -221,9 +221,9 @@ class PessoaList extends TPage
 
             if($filters = TSession::getValue(__CLASS__.'_filters'))
             {
-                foreach ($filters as $filter) 
+                foreach ($filters as $filter)
                 {
-                    $criteria->add($filter);       
+                    $criteria->add($filter);
                 }
             }
 
@@ -257,7 +257,7 @@ class PessoaList extends TPage
             }
             else
             {
-                new TMessage('info', _t('No records found'));       
+                new TMessage('info', _t('No records found'));
             }
 
             TTransaction::close(); // close the transaction
@@ -268,8 +268,8 @@ class PessoaList extends TPage
             TTransaction::rollback(); // undo all pending operations
         }
     }
-    public function onDelete($param = null) 
-    { 
+    public function onDelete($param = null)
+    {
         if(isset($param['delete']) && $param['delete'] == 1)
         {
             try
@@ -280,7 +280,7 @@ class PessoaList extends TPage
                 TTransaction::open(self::$database);
 
                 // instantiates object
-                $object = new Pessoa($key, FALSE); 
+                $object = new Pessoa($key, FALSE);
 
                 // deletes the object from the database
                 $object->delete();
@@ -308,12 +308,12 @@ class PessoaList extends TPage
             $action->setParameters($param); // pass the key paramseter ahead
             $action->setParameter('delete', 1);
             // shows a dialog to the user
-            new TQuestion(AdiantiCoreTranslator::translate('Do you really want to delete ?'), $action);   
+            new TQuestion(AdiantiCoreTranslator::translate('Do you really want to delete ?'), $action);
         }
     }
-    public function onAtivaDesativa($param = null) 
+    public function onAtivaDesativa($param = null)
     {
-        try 
+        try
         {
             //code here
             TTransaction::open(self::$database);
@@ -332,9 +332,9 @@ class PessoaList extends TPage
 
             //</autoCode>
         }
-        catch (Exception $e) 
+        catch (Exception $e)
         {
-            new TMessage('error', $e->getMessage());    
+            new TMessage('error', $e->getMessage());
         }
     }
 
@@ -353,43 +353,43 @@ class PessoaList extends TPage
         if (isset($data->id) AND ( (is_scalar($data->id) AND $data->id !== '') OR (is_array($data->id) AND (!empty($data->id)) )) )
         {
 
-            $filters[] = new TFilter('id', '=', $data->id);// create the filter 
+            $filters[] = new TFilter('id', '=', $data->id);// create the filter
         }
 
         if (isset($data->tipo_pessoa) AND ( (is_scalar($data->tipo_pessoa) AND $data->tipo_pessoa !== '') OR (is_array($data->tipo_pessoa) AND (!empty($data->tipo_pessoa)) )) )
         {
 
-            $filters[] = new TFilter('tipo_pessoa', '=', $data->tipo_pessoa);// create the filter 
+            $filters[] = new TFilter('tipo_pessoa', '=', $data->tipo_pessoa);// create the filter
         }
 
         if (isset($data->ativo) AND ( (is_scalar($data->ativo) AND $data->ativo !== '') OR (is_array($data->ativo) AND (!empty($data->ativo)) )) )
         {
 
-            $filters[] = new TFilter('ativo', '=', $data->ativo);// create the filter 
+            $filters[] = new TFilter('ativo', '=', $data->ativo);// create the filter
         }
 
         if (isset($data->nome) AND ( (is_scalar($data->nome) AND $data->nome !== '') OR (is_array($data->nome) AND (!empty($data->nome)) )) )
         {
 
-            $filters[] = new TFilter('nome', 'like', "%{$data->nome}%");// create the filter 
+            $filters[] = new TFilter('nome', 'like', "%{$data->nome}%");// create the filter
         }
 
         if (isset($data->data_registro_ini) AND ( (is_scalar($data->data_registro_ini) AND $data->data_registro_ini !== '') OR (is_array($data->data_registro_ini) AND (!empty($data->data_registro_ini)) )) )
         {
 
-            $filters[] = new TFilter('data_registro', '>=', $data->data_registro_ini);// create the filter 
+            $filters[] = new TFilter('data_registro', '>=', $data->data_registro_ini);// create the filter
         }
 
         if (isset($data->data_registro_fim) AND ( (is_scalar($data->data_registro_fim) AND $data->data_registro_fim !== '') OR (is_array($data->data_registro_fim) AND (!empty($data->data_registro_fim)) )) )
         {
 
-            $filters[] = new TFilter('data_registro', '<=', $data->data_registro_fim);// create the filter 
+            $filters[] = new TFilter('data_registro', '<=', $data->data_registro_fim);// create the filter
         }
 
         if (isset($data->usuario_registro) AND ( (is_scalar($data->usuario_registro) AND $data->usuario_registro !== '') OR (is_array($data->usuario_registro) AND (!empty($data->usuario_registro)) )) )
         {
 
-            $filters[] = new TFilter('usuario_registro', 'like', "%{$data->usuario_registro}%");// create the filter 
+            $filters[] = new TFilter('usuario_registro', 'like', "%{$data->usuario_registro}%");// create the filter
         }
 
         $param = array();
@@ -413,7 +413,7 @@ class PessoaList extends TPage
     {
         try
         {
-            // open a transaction with database 'ancor907_erpsimples'
+            // open a transaction with database 'ancorati_erpsimplesHS'
             TTransaction::open(self::$database);
 
             // creates a repository for Pessoa
@@ -424,7 +424,7 @@ class PessoaList extends TPage
 
             if (empty($param['order']))
             {
-                $param['order'] = 'id';    
+                $param['order'] = 'id';
             }
 
             if (empty($param['direction']))
@@ -437,9 +437,9 @@ class PessoaList extends TPage
 
             if($filters = TSession::getValue(__CLASS__.'_filters'))
             {
-                foreach ($filters as $filter) 
+                foreach ($filters as $filter)
                 {
-                    $criteria->add($filter);       
+                    $criteria->add($filter);
                 }
             }
 
