@@ -13,7 +13,7 @@ class SystemUserForm extends TPage
 {
     protected $form; // form
     protected $program_list;
-    
+
     /**
      * Class constructor
      * Creates the page and the registration form
@@ -21,11 +21,11 @@ class SystemUserForm extends TPage
     function __construct()
     {
         parent::__construct();
-        
+
         // creates the form
         $this->form = new BootstrapFormBuilder('form_System_user');
         $this->form->setFormTitle( _t('User') );
-        
+
         // create the form fields
         $id            = new TEntry('id');
         $name          = new TEntry('name');
@@ -37,7 +37,7 @@ class SystemUserForm extends TPage
         $groups        = new TDBCheckGroup('groups','permission','SystemGroup','id','name');
         $frontpage_id  = new TDBUniqueSearch('frontpage_id', 'permission', 'SystemProgram', 'id', 'name', 'name');
         $units         = new TDBCheckGroup('units','permission','SystemUnit','id','name');
-        
+
         $units->setLayout('horizontal');
         if ($units->getLabels())
         {
@@ -46,7 +46,7 @@ class SystemUserForm extends TPage
                 $label->setSize(200);
             }
         }
-        
+
         $groups->setLayout('horizontal');
         if ($groups->getLabels())
         {
@@ -55,12 +55,12 @@ class SystemUserForm extends TPage
                 $label->setSize(200);
             }
         }
-        
+
         $btn = $this->form->addAction( _t('Save'), new TAction(array($this, 'onSave')), 'far:save');
         $btn->class = 'btn btn-sm btn-primary';
         $this->form->addActionLink( _t('Clear'), new TAction(array($this, 'onEdit')), 'fa:eraser red');
         $this->form->addActionLink( _t('Back'), new TAction(array('SystemUserList','onReload')), 'far:arrow-alt-circle-left blue');
-        
+
         // define the sizes
         $id->setSize('50%');
         $name->setSize('100%');
@@ -71,15 +71,15 @@ class SystemUserForm extends TPage
         $unit_id->setSize('100%');
         $frontpage_id->setSize('100%');
         $frontpage_id->setMinLength(1);
-        
+
         // outros
         $id->setEditable(false);
-        
+
         // validations
         $name->addValidation(_t('Name'), new TRequiredValidator);
         $login->addValidation('Login', new TRequiredValidator);
         $email->addValidation('Email', new TEmailValidator);
-        
+
         $this->form->addFields( [new TLabel('ID')], [$id],  [new TLabel(_t('Name'))], [$name] );
         $this->form->addFields( [new TLabel(_t('Login'))], [$login],  [new TLabel(_t('Email'))], [$email] );
         $this->form->addFields( [new TLabel(_t('Main unit'))], [$unit_id],  [new TLabel(_t('Front page'))], [$frontpage_id] );
@@ -88,11 +88,11 @@ class SystemUserForm extends TPage
         $this->form->addFields( [$units] );
         $this->form->addFields( [new TFormSeparator(_t('Groups'))] );
         $this->form->addFields( [$groups] );
-        
+
         $search = new TEntry('search');
         $search->placeholder = _t('Search');
         $search->style = 'width:50%;margin-left: 4px; border-radius: 4px';
-        
+
         $this->program_list = new TCheckList('program_list');
         $this->program_list->setIdColumn('id');
         $this->program_list->addColumn('id',    'ID',    'center',  '10%');
@@ -101,26 +101,26 @@ class SystemUserForm extends TPage
         $col_program->enableAutoHide(500);
         $this->program_list->setHeight(150);
         $this->program_list->makeScrollable();
-        
+
         $col_program->setTransformer( function($value, $object, $row) {
             $menuparser = new TMenuParser('menu.xml');
             $paths = $menuparser->getPath($value);
-            
+
             if ($paths)
             {
                 return implode(' &raquo; ', $paths);
             }
         });
-        
+
         $this->program_list->enableSearch($search, 'name');
-        
+
         $this->form->addFields( [new TFormSeparator(_t('Programs'))] );
         $this->form->addFields( [$this->program_list] );
-        
+
         TTransaction::open('permission');
         $this->program_list->addItems( SystemProgram::get() );
         TTransaction::close();
-        
+
         $container = new TVBox;
         $container->style = 'width: 100%';
         $container->add(new TXMLBreadCrumb('menu.xml', 'SystemUserList'));
@@ -139,55 +139,55 @@ class SystemUserForm extends TPage
         {
             // open a transaction with database 'permission'
             TTransaction::open('permission');
-            
+
             $data = $this->form->getData();
             $this->form->setData($data);
-            
+
             $object = new SystemUsers;
             $object->fromArray( (array) $data );
-            
+
             $senha = $object->password;
-            
+
             if( empty($object->login) )
             {
                 throw new Exception(TAdiantiCoreTranslator::translate('The field ^1 is required', _t('Login')));
             }
-            
+
             if( empty($object->id) )
             {
                 if (SystemUsers::newFromLogin($object->login) instanceof SystemUsers)
                 {
                     throw new Exception(_t('An user with this login is already registered'));
                 }
-                
+
                 if (SystemUsers::newFromEmail($object->email) instanceof SystemUsers)
                 {
                     throw new Exception(_t('An user with this e-mail is already registered'));
                 }
-                
+
                 if ( empty($object->password) )
                 {
                     throw new Exception(TAdiantiCoreTranslator::translate('The field ^1 is required', _t('Password')));
                 }
-                
+
                 $object->active = 'Y';
             }
-            
+
             if( $object->password )
             {
                 if( $object->password !== $param['repassword'] )
                     throw new Exception(_t('The passwords do not match'));
-                
+
                 $object->password = md5($object->password);
             }
             else
             {
                 unset($object->password);
             }
-            
+
             $object->store();
             $object->clearParts();
-            
+
             if( !empty($data->groups) )
             {
                 foreach( $data->groups as $group_id )
@@ -195,7 +195,7 @@ class SystemUserForm extends TPage
                     $object->addSystemUserGroup( new SystemGroup($group_id) );
                 }
             }
-            
+
             if( !empty($data->units) )
             {
                 foreach( $param['units'] as $unit_id )
@@ -203,7 +203,7 @@ class SystemUserForm extends TPage
                     $object->addSystemUserUnit( new SystemUnit($unit_id) );
                 }
             }
-            
+
             if (!empty($data->program_list))
             {
                 foreach ($data->program_list as $program_id)
@@ -211,14 +211,14 @@ class SystemUserForm extends TPage
                     $object->addSystemUserProgram( new SystemProgram( $program_id ) );
                 }
             }
-            
+
             $data = new stdClass;
             $data->id = $object->id;
             TForm::sendData('form_System_user', $data);
-            
+
             // close the transaction
             TTransaction::close();
-            
+
             // shows the success message
             new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
         }
@@ -228,7 +228,7 @@ class SystemUserForm extends TPage
             TTransaction::rollback();
         }
     }
-    
+
     /**
      * method onEdit()
      * Executed whenever the user clicks at the edit button da datagrid
@@ -241,18 +241,28 @@ class SystemUserForm extends TPage
             {
                 // get the parameter $key
                 $key=$param['key'];
-                
+
                 // open a transaction with database 'permission'
                 TTransaction::open('permission');
-                
+
                 // instantiates object System_user
                 $object = new SystemUsers($key);
-                
+
+                /* Customização Âncora */
+                $usuarioLogado = TSession::getValue('userid');
+
+                if ($usuarioLogado != 1 && $object->id == 1){
+                    $messageAction = new TAction(['SystemUserList', 'onReload']);
+                    new TMessage('info', 'Sem permissão para editar este usuário!', $messageAction);
+                    return;
+                }
+                /* --- */
+
                 unset($object->password);
-                
+
                 $groups = array();
                 $units  = array();
-                
+
                 if( $groups_db = $object->getSystemUserGroups() )
                 {
                     foreach( $groups_db as $group )
@@ -260,7 +270,7 @@ class SystemUserForm extends TPage
                         $groups[] = $group->id;
                     }
                 }
-                
+
                 if( $units_db = $object->getSystemUserUnits() )
                 {
                     foreach( $units_db as $unit )
@@ -268,20 +278,20 @@ class SystemUserForm extends TPage
                         $units[] = $unit->id;
                     }
                 }
-                
+
                 $program_ids = array();
                 foreach ($object->getSystemUserPrograms() as $program)
                 {
                     $program_ids[] = $program->id;
                 }
-                
+
                 $object->program_list = $program_ids;
                 $object->groups = $groups;
                 $object->units  = $units;
-                
+
                 // fill the form with the active record data
                 $this->form->setData($object);
-                
+
                 // close the transaction
                 TTransaction::close();
             }
