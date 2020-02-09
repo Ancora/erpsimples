@@ -124,6 +124,7 @@ class SystemUserList extends TStandardList
         $action_edit->setField('id');
         $this->datagrid->addAction($action_edit);
 
+        /* Customização Âncora */
         // create DELETE action
         /* $action_del = new TDataGridAction(array($this, 'onDelete'));
         $action_del->setButtonClass('btn btn-default');
@@ -139,6 +140,7 @@ class SystemUserList extends TStandardList
         $action_clone->setImage('far:clone green');
         $action_clone->setField('id');
         $this->datagrid->addAction($action_clone); */
+        /* --- */
 
         // create ONOFF action
         $action_onoff = new TDataGridAction(array($this, 'onTurnOnOff'));
@@ -233,16 +235,6 @@ class SystemUserList extends TStandardList
         {
             TTransaction::open('permission');
             $user = new SystemUsers($param['id']);
-
-            /* Customização Âncora */
-            $usuarioLogado = TSession::getValue('userid');
-
-            if ($usuarioLogado != 1 && $user->id == 1){
-                new TMessage('info', 'Sem permissão para editar este usuário!');
-                return;
-            }
-            /* --- */
-
             $user->cloneUser();
             TTransaction::close();
 

@@ -254,7 +254,7 @@ class SystemUserForm extends TPage
                 if ($usuarioLogado != 1 && $object->id == 1){
                     $messageAction = new TAction(['SystemUserList', 'onReload']);
                     new TMessage('info', 'Sem permissão para editar este usuário!', $messageAction);
-                    return;
+                    //return;
                 }
                 /* --- */
 
