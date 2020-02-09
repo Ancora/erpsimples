@@ -4,7 +4,7 @@ class MovimentoForm extends TPage
 {
     protected $form;
     private $formFields = [];
-    private static $database = 'ancor907_erpsimples';
+    private static $database = 'ancorati_erpsimplesHS';
     private static $activeRecord = 'Movimento';
     private static $primaryKey = 'id';
     private static $formName = 'form_Movimento';
@@ -32,14 +32,14 @@ class MovimentoForm extends TPage
         $criteria_tipo_movimento_id->add(new TFilter('id', '!=', $filterVar));
 
         $id = new TEntry('id');
-        $tipo_movimento_id = new TDBCombo('tipo_movimento_id', 'ancor907_erpsimples', 'TipoMovimento', 'id', '{descricao}','descricao asc' , $criteria_tipo_movimento_id );
-        $situacao_id = new TDBCombo('situacao_id', 'ancor907_erpsimples', 'Situacao', 'id', '{descricao}','descricao asc'  );
+        $tipo_movimento_id = new TDBCombo('tipo_movimento_id', 'ancorati_erpsimplesHS', 'TipoMovimento', 'id', '{descricao}','descricao asc' , $criteria_tipo_movimento_id );
+        $situacao_id = new TDBCombo('situacao_id', 'ancorati_erpsimplesHS', 'Situacao', 'id', '{descricao}','descricao asc'  );
         $tipo_estoque = new THidden('tipo_estoque');
         $situacao_id_ant = new THidden('situacao_id_ant');
-        $pessoa_id = new TDBUniqueSearch('pessoa_id', 'ancor907_erpsimples', 'Pessoa', 'id', 'nome','nome asc'  );
+        $pessoa_id = new TDBUniqueSearch('pessoa_id', 'ancorati_erpsimplesHS', 'Pessoa', 'id', 'nome','nome asc'  );
         $data_abertura = new TDate('data_abertura');
         $data_entrega = new TDate('data_entrega');
-        $tipo_documento_id = new TDBCombo('tipo_documento_id', 'ancor907_erpsimples', 'TipoDocumento', 'id', '{descricao}','descricao asc'  );
+        $tipo_documento_id = new TDBCombo('tipo_documento_id', 'ancorati_erpsimplesHS', 'TipoDocumento', 'id', '{descricao}','descricao asc'  );
         $numero_documento = new TEntry('numero_documento');
         $data_documento = new TDate('data_documento');
         $vlr_frete = new TNumeric('vlr_frete', '2', ',', '.' );
@@ -51,7 +51,7 @@ class MovimentoForm extends TPage
         $usuario_registro = new TEntry('usuario_registro');
         $data_atualizacao = new TDateTime('data_atualizacao');
         $usuario_atualizacao = new TEntry('usuario_atualizacao');
-        $produtos_movimento_movimento_produto_id = new TDBUniqueSearch('produtos_movimento_movimento_produto_id', 'ancor907_erpsimples', 'Produto', 'id', 'descricao','descricao asc'  );
+        $produtos_movimento_movimento_produto_id = new TDBUniqueSearch('produtos_movimento_movimento_produto_id', 'ancorati_erpsimplesHS', 'Produto', 'id', 'descricao','descricao asc'  );
         $produtos_movimento_movimento_qtd = new TNumeric('produtos_movimento_movimento_qtd', '2', ',', '.' );
         $produtos_movimento_movimento_vlr_unitario = new TNumeric('produtos_movimento_movimento_vlr_unitario', '2', ',', '.' );
         $sld_estoque = new TNumeric('sld_estoque', '2', ',', '.' );
@@ -805,7 +805,7 @@ class MovimentoForm extends TPage
                 $rowItem->produtos_movimento_movimento_produto_id = '';
                 if(isset($item['produtos_movimento_movimento_produto_id']) && $item['produtos_movimento_movimento_produto_id'])
                 {
-                    TTransaction::open('ancor907_erpsimples');
+                    TTransaction::open('ancorati_erpsimplesHS');
                     $produto = Produto::find($item['produtos_movimento_movimento_produto_id']);
                     if($produto)
                     {

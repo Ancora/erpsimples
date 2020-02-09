@@ -4,7 +4,7 @@ class GrupoForm extends TPage
 {
     protected $form;
     private $formFields = [];
-    private static $database = 'ancor907_erpsimples';
+    private static $database = 'ancorati_erpsimplesHS';
     private static $activeRecord = 'Grupo';
     private static $primaryKey = 'id';
     private static $formName = 'form_Grupo';
@@ -60,7 +60,7 @@ class GrupoForm extends TPage
 
         // create the form actions
         $btn_onsave = $this->form->addAction("Salvar", new TAction([$this, 'onSave']), 'far:save #ffffff');
-        $btn_onsave->addStyleClass('btn-primary'); 
+        $btn_onsave->addStyleClass('btn-primary');
 
         $btn_onclear = $this->form->addAction("Limpar formulário", new TAction([$this, 'onClear']), 'fas:eraser #dd5a43');
 
@@ -75,7 +75,7 @@ class GrupoForm extends TPage
 
     }
 
-    public function onSave($param = null) 
+    public function onSave($param = null)
     {
         try
         {
@@ -91,13 +91,13 @@ class GrupoForm extends TPage
 
             $this->form->validate(); // validate form data
 
-            $object = new Grupo(); // create an empty object 
+            $object = new Grupo(); // create an empty object
 
             $data = $this->form->getData(); // get form data as array
             $object->fromArray( (array) $data); // load the object with data
 
             // Registrando data de cadastro (data_registro) e data de atualização (data_atualizacao) e usuário logado
-            if(!$object->id) 
+            if(!$object->id)
             {
                 $object->data_registro = date('Y-m-d H:i:s');
                 $object->usuario_registro = TSession::getValue('username');
@@ -110,10 +110,10 @@ class GrupoForm extends TPage
             }
             // Fim registro de datas e usuário logado
 
-            $object->store(); // save the object 
+            $object->store(); // save the object
 
             // get the generated {PRIMARY_KEY}
-            $data->id = $object->id; 
+            $data->id = $object->id;
 
             $this->form->setData($data); // fill form data
             TTransaction::close(); // close the transaction
@@ -130,7 +130,7 @@ class GrupoForm extends TPage
         }
         catch (Exception $e) // in case of exception
         {
-            //</catchAutoCode> 
+            //</catchAutoCode>
 
             new TMessage('error', $e->getMessage()); // shows the exception error message
             $this->form->setData( $this->form->getData() ); // keep form data
@@ -147,11 +147,11 @@ class GrupoForm extends TPage
                 $key = $param['key'];  // get the parameter $key
                 TTransaction::open(self::$database); // open a transaction
 
-                $object = new Grupo($key); // instantiates the Active Record 
+                $object = new Grupo($key); // instantiates the Active Record
 
-                $this->form->setData($object); // fill the form 
+                $this->form->setData($object); // fill the form
 
-                TTransaction::close(); // close the transaction 
+                TTransaction::close(); // close the transaction
             }
             else
             {
@@ -178,7 +178,7 @@ class GrupoForm extends TPage
     public function onShow($param = null)
     {
 
-    } 
+    }
 
 }
 

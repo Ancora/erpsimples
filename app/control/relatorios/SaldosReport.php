@@ -4,7 +4,7 @@ class SaldosReport extends TPage
 {
     private $form; // form
     private $loaded;
-    private static $database = 'ancor907_erpsimples';
+    private static $database = 'ancorati_erpsimplesHS';
     private static $activeRecord = 'Saldos';
     private static $primaryKey = 'id';
     private static $formName = 'formReport_Saldos';
@@ -24,7 +24,7 @@ class SaldosReport extends TPage
         $this->form->setFormTitle("Saldos dos Produtos");
 
         $id = new TEntry('id');
-        $produto_id = new TDBUniqueSearch('produto_id', 'ancor907_erpsimples', 'Produto', 'id', 'descricao','descricao asc'  );
+        $produto_id = new TDBUniqueSearch('produto_id', 'ancorati_erpsimplesHS', 'Produto', 'id', 'descricao','descricao asc'  );
 
         $produto_id->setMask('{descricao}');
         $produto_id->setMinLength(2);
@@ -39,7 +39,7 @@ class SaldosReport extends TPage
         $this->form->setData( TSession::getValue(__CLASS__.'_filter_data') );
 
         $btn_ongeneratehtml = $this->form->addAction("Gerar HTML", new TAction([$this, 'onGenerateHtml']), 'far:file-code #ffffff');
-        $btn_ongeneratehtml->addStyleClass('btn-primary'); 
+        $btn_ongeneratehtml->addStyleClass('btn-primary');
 
         $btn_ongeneratepdf = $this->form->addAction("Gerar PDF", new TAction([$this, 'onGeneratePdf']), 'far:file-pdf #d44734');
 
@@ -58,19 +58,19 @@ class SaldosReport extends TPage
 
     }
 
-    public function onGenerateHtml($param = null) 
+    public function onGenerateHtml($param = null)
     {
         $this->onGenerate('html');
     }
-    public function onGeneratePdf($param = null) 
+    public function onGeneratePdf($param = null)
     {
         $this->onGenerate('pdf');
     }
-    public function onGenerateXls($param = null) 
+    public function onGenerateXls($param = null)
     {
         $this->onGenerate('xls');
     }
-    public function onGenerateRtf($param = null) 
+    public function onGenerateRtf($param = null)
     {
         $this->onGenerate('rtf');
     }
@@ -91,12 +91,12 @@ class SaldosReport extends TPage
         if (isset($data->id) AND ( (is_scalar($data->id) AND $data->id !== '') OR (is_array($data->id) AND (!empty($data->id)) )) )
         {
 
-            $filters[] = new TFilter('id', '=', $data->id);// create the filter 
+            $filters[] = new TFilter('id', '=', $data->id);// create the filter
         }
         if (isset($data->produto_id) AND ( (is_scalar($data->produto_id) AND $data->produto_id !== '') OR (is_array($data->produto_id) AND (!empty($data->produto_id)) )) )
         {
 
-            $filters[] = new TFilter('produto_id', '=', $data->produto_id);// create the filter 
+            $filters[] = new TFilter('produto_id', '=', $data->produto_id);// create the filter
         }
 
         // fill the form with data again
@@ -113,7 +113,7 @@ class SaldosReport extends TPage
         try
         {
             $filters = $this->getFilters();
-            // open a transaction with database 'ancor907_erpsimples'
+            // open a transaction with database 'ancorati_erpsimplesHS'
             TTransaction::open(self::$database);
             $param = [];
             // creates a repository for Saldos
@@ -125,9 +125,9 @@ class SaldosReport extends TPage
 
             if ($filters)
             {
-                foreach ($filters as $filter) 
+                foreach ($filters as $filter)
                 {
-                    $criteria->add($filter);       
+                    $criteria->add($filter);
                 }
             }
 
@@ -180,16 +180,16 @@ class SaldosReport extends TPage
                                 $pdf = $tr->getNativeWriter();
 
                                 // Define a fonte/ estilos
-                                $pdf->SetFont('Arial','B',15); 
+                                $pdf->SetFont('Arial','B',15);
 
                                 // Define o posicionamento do texto
-                                $pdf->Cell(80); 
+                                $pdf->Cell(80);
 
                                 // Texto do cabeçalho
-                                $pdf->Cell(30,10, utf8_decode('Saldos dos Produtos') ,0,0,'C'); 
+                                $pdf->Cell(30,10, utf8_decode('Saldos dos Produtos') ,0,0,'C');
 
-                                // Line break 
-                                $pdf->Ln(20); 
+                                // Line break
+                                $pdf->Ln(20);
 
                             }
                         );
@@ -207,8 +207,8 @@ class SaldosReport extends TPage
                                 $pdf->SetY(-40);
 
                                 // Define o estilho do footer
-                                $pdf->SetFont('Arial'   ,'B',12); 
-                                $pdf->Cell(110); 
+                                $pdf->SetFont('Arial'   ,'B',12);
+                                $pdf->Cell(110);
 
                                 // Obtém o número da página atual
                                 $numero = $pdf->PageNo();
@@ -216,8 +216,8 @@ class SaldosReport extends TPage
                                 // Footer
                                 $pdf->Cell(0,10, utf8_decode("Pg: {$numero}/{nb}") ,0,0,'R');
 
-                                // Line break 
-                                $pdf->Ln(20); 
+                                // Line break
+                                $pdf->Ln(20);
                             }
                         );
                     }
@@ -254,7 +254,7 @@ class SaldosReport extends TPage
                     $firstRow = true;
 
                     // controls the background filling
-                    $colour = false;                
+                    $colour = false;
                     foreach ($objects as $object)
                     {
                         $style = $colour ? 'datap' : 'datai';

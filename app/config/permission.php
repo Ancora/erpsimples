@@ -1,11 +1,11 @@
 <?php
 return [
-    'host' => "localhost", 
-    'user' => "ancor907_admin", 
-    'pass' => "admin020702", 
-    'type' => "mysql", 
-    'port' => "3308", 
-    'name' => "ancor907_erpsimples", 
-    'prep' => "1", 
-    'slog' => "SystemSqlLogService", 
+    'host' => "localhost",
+    'user' => "ancorati_admin",
+    'pass' => "admin020702",
+    'type' => "mysql",
+    'port' => "",
+    'name' => "ancorati_erpsimplesHS",
+    'prep' => "1",
+    'slog' => "SystemSqlLogService",
 ];

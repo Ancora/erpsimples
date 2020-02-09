@@ -7,7 +7,7 @@ class UfList extends TPage
     private $pageNavigation;
     private $loaded;
     private $filter_criteria;
-    private static $database = 'ancor907_erpsimples';
+    private static $database = 'ancorati_erpsimplesHS';
     private static $activeRecord = 'Uf';
     private static $primaryKey = 'id';
     private static $formName = 'formList_Uf';
@@ -27,8 +27,8 @@ class UfList extends TPage
         $this->form->setFormTitle("UF");
 
         $id = new TEntry('id');
-        $descricao = new TDBUniqueSearch('descricao', 'ancor907_erpsimples', 'Uf', 'id', 'descricao','descricao asc'  );
-        $sigla = new TDBUniqueSearch('sigla', 'ancor907_erpsimples', 'Uf', 'id', 'sigla','descricao asc'  );
+        $descricao = new TDBUniqueSearch('descricao', 'ancorati_erpsimplesHS', 'Uf', 'id', 'descricao','descricao asc'  );
+        $sigla = new TDBUniqueSearch('sigla', 'ancorati_erpsimplesHS', 'Uf', 'id', 'sigla','descricao asc'  );
 
         $sigla->setMinLength(2);
         $descricao->setMinLength(2);
@@ -49,13 +49,13 @@ class UfList extends TPage
         $this->form->setData( TSession::getValue(__CLASS__.'_filter_data') );
 
         $btn_onsearch = $this->form->addAction("Buscar", new TAction([$this, 'onSearch']), 'fas:search #ffffff');
-        $btn_onsearch->addStyleClass('btn-primary'); 
+        $btn_onsearch->addStyleClass('btn-primary');
 
         $btn_onexportcsv = $this->form->addAction("Exportar como CSV", new TAction([$this, 'onExportCsv']), 'far:file-alt #ffffff');
-        $btn_onexportcsv->addStyleClass('btn-info'); 
+        $btn_onexportcsv->addStyleClass('btn-info');
 
         $btn_onshow = $this->form->addAction("Cadastrar", new TAction(['UfForm', 'onShow']), 'fas:plus #ffffff');
-        $btn_onshow->addStyleClass('btn-success'); 
+        $btn_onshow->addStyleClass('btn-success');
 
         // creates a Datagrid
         $this->datagrid = new TDataGrid;
@@ -128,7 +128,7 @@ class UfList extends TPage
 
     }
 
-    public function onExportCsv($param = null) 
+    public function onExportCsv($param = null)
     {
         try
         {
@@ -140,9 +140,9 @@ class UfList extends TPage
 
             if($filters = TSession::getValue(__CLASS__.'_filters'))
             {
-                foreach ($filters as $filter) 
+                foreach ($filters as $filter)
                 {
-                    $criteria->add($filter);       
+                    $criteria->add($filter);
                 }
             }
 
@@ -176,7 +176,7 @@ class UfList extends TPage
             }
             else
             {
-                new TMessage('info', _t('No records found'));       
+                new TMessage('info', _t('No records found'));
             }
 
             TTransaction::close(); // close the transaction
@@ -187,8 +187,8 @@ class UfList extends TPage
             TTransaction::rollback(); // undo all pending operations
         }
     }
-    public function onDelete($param = null) 
-    { 
+    public function onDelete($param = null)
+    {
         if(isset($param['delete']) && $param['delete'] == 1)
         {
             try
@@ -199,7 +199,7 @@ class UfList extends TPage
                 TTransaction::open(self::$database);
 
                 // instantiates object
-                $object = new Uf($key, FALSE); 
+                $object = new Uf($key, FALSE);
 
                 // deletes the object from the database
                 $object->delete();
@@ -227,7 +227,7 @@ class UfList extends TPage
             $action->setParameters($param); // pass the key paramseter ahead
             $action->setParameter('delete', 1);
             // shows a dialog to the user
-            new TQuestion(AdiantiCoreTranslator::translate('Do you really want to delete ?'), $action);   
+            new TQuestion(AdiantiCoreTranslator::translate('Do you really want to delete ?'), $action);
         }
     }
 
@@ -246,19 +246,19 @@ class UfList extends TPage
         if (isset($data->id) AND ( (is_scalar($data->id) AND $data->id !== '') OR (is_array($data->id) AND (!empty($data->id)) )) )
         {
 
-            $filters[] = new TFilter('id', '=', $data->id);// create the filter 
+            $filters[] = new TFilter('id', '=', $data->id);// create the filter
         }
 
         if (isset($data->descricao) AND ( (is_scalar($data->descricao) AND $data->descricao !== '') OR (is_array($data->descricao) AND (!empty($data->descricao)) )) )
         {
 
-            $filters[] = new TFilter('id', '=', $data->descricao);// create the filter 
+            $filters[] = new TFilter('id', '=', $data->descricao);// create the filter
         }
 
         if (isset($data->sigla) AND ( (is_scalar($data->sigla) AND $data->sigla !== '') OR (is_array($data->sigla) AND (!empty($data->sigla)) )) )
         {
 
-            $filters[] = new TFilter('id', '=', $data->sigla);// create the filter 
+            $filters[] = new TFilter('id', '=', $data->sigla);// create the filter
         }
 
         $param = array();
@@ -282,7 +282,7 @@ class UfList extends TPage
     {
         try
         {
-            // open a transaction with database 'ancor907_erpsimples'
+            // open a transaction with database 'ancorati_erpsimplesHS'
             TTransaction::open(self::$database);
 
             // creates a repository for Uf
@@ -293,7 +293,7 @@ class UfList extends TPage
 
             if (empty($param['order']))
             {
-                $param['order'] = 'id';    
+                $param['order'] = 'id';
             }
 
             if (empty($param['direction']))
@@ -306,9 +306,9 @@ class UfList extends TPage
 
             if($filters = TSession::getValue(__CLASS__.'_filters'))
             {
-                foreach ($filters as $filter) 
+                foreach ($filters as $filter)
                 {
-                    $criteria->add($filter);       
+                    $criteria->add($filter);
                 }
             }
 

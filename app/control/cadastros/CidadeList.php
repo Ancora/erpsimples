@@ -7,7 +7,7 @@ class CidadeList extends TPage
     private $pageNavigation;
     private $loaded;
     private $filter_criteria;
-    private static $database = 'ancor907_erpsimples';
+    private static $database = 'ancorati_erpsimplesHS';
     private static $activeRecord = 'Cidade';
     private static $primaryKey = 'id';
     private static $formName = 'formList_Cidade';
@@ -27,8 +27,8 @@ class CidadeList extends TPage
         $this->form->setFormTitle("Cidades");
 
         $id = new TEntry('id');
-        $descricao = new TDBUniqueSearch('descricao', 'ancor907_erpsimples', 'Cidade', 'id', 'descricao','descricao asc'  );
-        $uf_id = new TDBUniqueSearch('uf_id', 'ancor907_erpsimples', 'Uf', 'id', 'sigla','descricao asc'  );
+        $descricao = new TDBUniqueSearch('descricao', 'ancorati_erpsimplesHS', 'Cidade', 'id', 'descricao','descricao asc'  );
+        $uf_id = new TDBUniqueSearch('uf_id', 'ancorati_erpsimplesHS', 'Uf', 'id', 'sigla','descricao asc'  );
 
         $uf_id->setMinLength(2);
         $descricao->setMinLength(2);
@@ -49,13 +49,13 @@ class CidadeList extends TPage
         $this->form->setData( TSession::getValue(__CLASS__.'_filter_data') );
 
         $btn_onsearch = $this->form->addAction("Buscar", new TAction([$this, 'onSearch']), 'fas:search #ffffff');
-        $btn_onsearch->addStyleClass('btn-primary'); 
+        $btn_onsearch->addStyleClass('btn-primary');
 
         $btn_onexportcsv = $this->form->addAction("Exportar como CSV", new TAction([$this, 'onExportCsv']), 'far:file-alt #ffffff');
-        $btn_onexportcsv->addStyleClass('btn-info'); 
+        $btn_onexportcsv->addStyleClass('btn-info');
 
         $btn_onshow = $this->form->addAction("Cadastrar", new TAction(['CidadeForm', 'onShow']), 'fas:plus #ffffff');
-        $btn_onshow->addStyleClass('btn-success'); 
+        $btn_onshow->addStyleClass('btn-success');
 
         // creates a Datagrid
         $this->datagrid = new TDataGrid;
@@ -125,7 +125,7 @@ class CidadeList extends TPage
 
     }
 
-    public function onExportCsv($param = null) 
+    public function onExportCsv($param = null)
     {
         try
         {
@@ -137,9 +137,9 @@ class CidadeList extends TPage
 
             if($filters = TSession::getValue(__CLASS__.'_filters'))
             {
-                foreach ($filters as $filter) 
+                foreach ($filters as $filter)
                 {
-                    $criteria->add($filter);       
+                    $criteria->add($filter);
                 }
             }
 
@@ -173,7 +173,7 @@ class CidadeList extends TPage
             }
             else
             {
-                new TMessage('info', _t('No records found'));       
+                new TMessage('info', _t('No records found'));
             }
 
             TTransaction::close(); // close the transaction
@@ -185,8 +185,8 @@ class CidadeList extends TPage
         }
     }
 
-    public function onDelete($param = null) 
-    { 
+    public function onDelete($param = null)
+    {
         if(isset($param['delete']) && $param['delete'] == 1)
         {
             try
@@ -197,7 +197,7 @@ class CidadeList extends TPage
                 TTransaction::open(self::$database);
 
                 // instantiates object
-                $object = new Cidade($key, FALSE); 
+                $object = new Cidade($key, FALSE);
 
                 // deletes the object from the database
                 $object->delete();
@@ -225,7 +225,7 @@ class CidadeList extends TPage
             $action->setParameters($param); // pass the key paramseter ahead
             $action->setParameter('delete', 1);
             // shows a dialog to the user
-            new TQuestion(AdiantiCoreTranslator::translate('Do you really want to delete ?'), $action);   
+            new TQuestion(AdiantiCoreTranslator::translate('Do you really want to delete ?'), $action);
         }
     }
 
@@ -244,19 +244,19 @@ class CidadeList extends TPage
         if (isset($data->id) AND ( (is_scalar($data->id) AND $data->id !== '') OR (is_array($data->id) AND (!empty($data->id)) )) )
         {
 
-            $filters[] = new TFilter('id', '=', $data->id);// create the filter 
+            $filters[] = new TFilter('id', '=', $data->id);// create the filter
         }
 
         if (isset($data->descricao) AND ( (is_scalar($data->descricao) AND $data->descricao !== '') OR (is_array($data->descricao) AND (!empty($data->descricao)) )) )
         {
 
-            $filters[] = new TFilter('id', '=', $data->descricao);// create the filter 
+            $filters[] = new TFilter('id', '=', $data->descricao);// create the filter
         }
 
         if (isset($data->uf_id) AND ( (is_scalar($data->uf_id) AND $data->uf_id !== '') OR (is_array($data->uf_id) AND (!empty($data->uf_id)) )) )
         {
 
-            $filters[] = new TFilter('uf_id', '=', $data->uf_id);// create the filter 
+            $filters[] = new TFilter('uf_id', '=', $data->uf_id);// create the filter
         }
 
         $param = array();
@@ -280,7 +280,7 @@ class CidadeList extends TPage
     {
         try
         {
-            // open a transaction with database 'ancor907_erpsimples'
+            // open a transaction with database 'ancorati_erpsimplesHS'
             TTransaction::open(self::$database);
 
             // creates a repository for Cidade
@@ -291,7 +291,7 @@ class CidadeList extends TPage
 
             if (empty($param['order']))
             {
-                $param['order'] = 'id';    
+                $param['order'] = 'id';
             }
 
             if (empty($param['direction']))
@@ -304,9 +304,9 @@ class CidadeList extends TPage
 
             if($filters = TSession::getValue(__CLASS__.'_filters'))
             {
-                foreach ($filters as $filter) 
+                foreach ($filters as $filter)
                 {
-                    $criteria->add($filter);       
+                    $criteria->add($filter);
                 }
             }
 

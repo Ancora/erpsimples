@@ -4,7 +4,7 @@ class MovimentoReport extends TPage
 {
     private $form; // form
     private $loaded;
-    private static $database = 'ancor907_erpsimples';
+    private static $database = 'ancorati_erpsimplesHS';
     private static $activeRecord = 'Movimento';
     private static $primaryKey = 'id';
     private static $formName = 'formReport_Movimento';
@@ -25,9 +25,9 @@ class MovimentoReport extends TPage
 
         $id = new TEntry('id');
         $tipo_estoque = new TCombo('tipo_estoque');
-        $tipo_movimento_id = new TDBCombo('tipo_movimento_id', 'ancor907_erpsimples', 'TipoMovimento', 'id', '{descricao}','descricao asc'  );
-        $situacao_id = new TDBCombo('situacao_id', 'ancor907_erpsimples', 'Situacao', 'id', '{descricao}','descricao asc'  );
-        $pessoa_id = new TDBUniqueSearch('pessoa_id', 'ancor907_erpsimples', 'Pessoa', 'id', 'nome','nome asc'  );
+        $tipo_movimento_id = new TDBCombo('tipo_movimento_id', 'ancorati_erpsimplesHS', 'TipoMovimento', 'id', '{descricao}','descricao asc'  );
+        $situacao_id = new TDBCombo('situacao_id', 'ancorati_erpsimplesHS', 'Situacao', 'id', '{descricao}','descricao asc'  );
+        $pessoa_id = new TDBUniqueSearch('pessoa_id', 'ancorati_erpsimplesHS', 'Pessoa', 'id', 'nome','nome asc'  );
         $data_abertura_ini = new TDate('data_abertura_ini');
         $data_abertura_fim = new TDate('data_abertura_fim');
         $vlr_total_ini = new TNumeric('vlr_total_ini', '2', ',', '.' );
@@ -77,7 +77,7 @@ class MovimentoReport extends TPage
         $this->form->setData( TSession::getValue(__CLASS__.'_filter_data') );
 
         $btn_ongeneratehtml = $this->form->addAction("Gerar HTML", new TAction([$this, 'onGenerateHtml']), 'far:file-code #ffffff');
-        $btn_ongeneratehtml->addStyleClass('btn-primary'); 
+        $btn_ongeneratehtml->addStyleClass('btn-primary');
 
         $btn_ongeneratepdf = $this->form->addAction("Gerar PDF", new TAction([$this, 'onGeneratePdf']), 'far:file-pdf #d44734');
 
@@ -96,19 +96,19 @@ class MovimentoReport extends TPage
 
     }
 
-    public function onGenerateHtml($param = null) 
+    public function onGenerateHtml($param = null)
     {
         $this->onGenerate('html');
     }
-    public function onGeneratePdf($param = null) 
+    public function onGeneratePdf($param = null)
     {
         $this->onGenerate('pdf');
     }
-    public function onGenerateXls($param = null) 
+    public function onGenerateXls($param = null)
     {
         $this->onGenerate('xls');
     }
-    public function onGenerateRtf($param = null) 
+    public function onGenerateRtf($param = null)
     {
         $this->onGenerate('rtf');
     }
@@ -129,57 +129,57 @@ class MovimentoReport extends TPage
         if (isset($data->id) AND ( (is_scalar($data->id) AND $data->id !== '') OR (is_array($data->id) AND (!empty($data->id)) )) )
         {
 
-            $filters[] = new TFilter('id', '=', $data->id);// create the filter 
+            $filters[] = new TFilter('id', '=', $data->id);// create the filter
         }
         if (isset($data->tipo_estoque) AND ( (is_scalar($data->tipo_estoque) AND $data->tipo_estoque !== '') OR (is_array($data->tipo_estoque) AND (!empty($data->tipo_estoque)) )) )
         {
 
-            $filters[] = new TFilter('tipo_estoque', '=', $data->tipo_estoque);// create the filter 
+            $filters[] = new TFilter('tipo_estoque', '=', $data->tipo_estoque);// create the filter
         }
         if (isset($data->tipo_movimento_id) AND ( (is_scalar($data->tipo_movimento_id) AND $data->tipo_movimento_id !== '') OR (is_array($data->tipo_movimento_id) AND (!empty($data->tipo_movimento_id)) )) )
         {
 
-            $filters[] = new TFilter('tipo_movimento_id', '=', $data->tipo_movimento_id);// create the filter 
+            $filters[] = new TFilter('tipo_movimento_id', '=', $data->tipo_movimento_id);// create the filter
         }
         if (isset($data->situacao_id) AND ( (is_scalar($data->situacao_id) AND $data->situacao_id !== '') OR (is_array($data->situacao_id) AND (!empty($data->situacao_id)) )) )
         {
 
-            $filters[] = new TFilter('situacao_id', '=', $data->situacao_id);// create the filter 
+            $filters[] = new TFilter('situacao_id', '=', $data->situacao_id);// create the filter
         }
         if (isset($data->pessoa_id) AND ( (is_scalar($data->pessoa_id) AND $data->pessoa_id !== '') OR (is_array($data->pessoa_id) AND (!empty($data->pessoa_id)) )) )
         {
 
-            $filters[] = new TFilter('pessoa_id', '=', $data->pessoa_id);// create the filter 
+            $filters[] = new TFilter('pessoa_id', '=', $data->pessoa_id);// create the filter
         }
         if (isset($data->data_abertura_ini) AND ( (is_scalar($data->data_abertura_ini) AND $data->data_abertura_ini !== '') OR (is_array($data->data_abertura_ini) AND (!empty($data->data_abertura_ini)) )) )
         {
 
-            $filters[] = new TFilter('data_abertura', '>=', $data->data_abertura_ini);// create the filter 
+            $filters[] = new TFilter('data_abertura', '>=', $data->data_abertura_ini);// create the filter
         }
         if (isset($data->data_abertura_fim) AND ( (is_scalar($data->data_abertura_fim) AND $data->data_abertura_fim !== '') OR (is_array($data->data_abertura_fim) AND (!empty($data->data_abertura_fim)) )) )
         {
 
-            $filters[] = new TFilter('data_abertura', '<=', $data->data_abertura_fim);// create the filter 
+            $filters[] = new TFilter('data_abertura', '<=', $data->data_abertura_fim);// create the filter
         }
         if (isset($data->vlr_total_ini) AND ( (is_scalar($data->vlr_total_ini) AND $data->vlr_total_ini !== '') OR (is_array($data->vlr_total_ini) AND (!empty($data->vlr_total_ini)) )) )
         {
 
-            $filters[] = new TFilter('vlr_total', '>=', $data->vlr_total_ini);// create the filter 
+            $filters[] = new TFilter('vlr_total', '>=', $data->vlr_total_ini);// create the filter
         }
         if (isset($data->vlr_total_fim) AND ( (is_scalar($data->vlr_total_fim) AND $data->vlr_total_fim !== '') OR (is_array($data->vlr_total_fim) AND (!empty($data->vlr_total_fim)) )) )
         {
 
-            $filters[] = new TFilter('vlr_total', '<=', $data->vlr_total_fim);// create the filter 
+            $filters[] = new TFilter('vlr_total', '<=', $data->vlr_total_fim);// create the filter
         }
         if (isset($data->data_entrega_ini) AND ( (is_scalar($data->data_entrega_ini) AND $data->data_entrega_ini !== '') OR (is_array($data->data_entrega_ini) AND (!empty($data->data_entrega_ini)) )) )
         {
 
-            $filters[] = new TFilter('data_entrega', '>=', $data->data_entrega_ini);// create the filter 
+            $filters[] = new TFilter('data_entrega', '>=', $data->data_entrega_ini);// create the filter
         }
         if (isset($data->data_entrega_fim) AND ( (is_scalar($data->data_entrega_fim) AND $data->data_entrega_fim !== '') OR (is_array($data->data_entrega_fim) AND (!empty($data->data_entrega_fim)) )) )
         {
 
-            $filters[] = new TFilter('data_entrega', '<=', $data->data_entrega_fim);// create the filter 
+            $filters[] = new TFilter('data_entrega', '<=', $data->data_entrega_fim);// create the filter
         }
 
         // fill the form with data again
@@ -196,7 +196,7 @@ class MovimentoReport extends TPage
         try
         {
             $filters = $this->getFilters();
-            // open a transaction with database 'ancor907_erpsimples'
+            // open a transaction with database 'ancorati_erpsimplesHS'
             TTransaction::open(self::$database);
             $param = [];
             // creates a repository for Movimento
@@ -211,9 +211,9 @@ class MovimentoReport extends TPage
 
             if ($filters)
             {
-                foreach ($filters as $filter) 
+                foreach ($filters as $filter)
                 {
-                    $criteria->add($filter);       
+                    $criteria->add($filter);
                 }
             }
 
@@ -266,16 +266,16 @@ class MovimentoReport extends TPage
                                 $pdf = $tr->getNativeWriter();
 
                                 // Define a fonte/ estilos
-                                $pdf->SetFont('Arial','B',15); 
+                                $pdf->SetFont('Arial','B',15);
 
                                 // Define o posicionamento do texto
-                                $pdf->Cell(80); 
+                                $pdf->Cell(80);
 
                                 // Texto do cabeçalho
-                                $pdf->Cell(30,10, utf8_decode('Listagem das Movimentações') ,0,0,'C'); 
+                                $pdf->Cell(30,10, utf8_decode('Listagem das Movimentações') ,0,0,'C');
 
-                                // Line break 
-                                $pdf->Ln(20); 
+                                // Line break
+                                $pdf->Ln(20);
 
                             }
                         );
@@ -293,8 +293,8 @@ class MovimentoReport extends TPage
                                 $pdf->SetY(-40);
 
                                 // Define o estilho do footer
-                                $pdf->SetFont('Arial'   ,'B',12); 
-                                $pdf->Cell(110); 
+                                $pdf->SetFont('Arial'   ,'B',12);
+                                $pdf->Cell(110);
 
                                 // Obtém o número da página atual
                                 $numero = $pdf->PageNo();
@@ -302,8 +302,8 @@ class MovimentoReport extends TPage
                                 // Footer
                                 $pdf->Cell(0,10, utf8_decode("Pg: {$numero}/{nb}") ,0,0,'R');
 
-                                // Line break 
-                                $pdf->Ln(20); 
+                                // Line break
+                                $pdf->Ln(20);
                             }
                         );
                     }
@@ -343,7 +343,7 @@ class MovimentoReport extends TPage
                     $firstRow = true;
 
                     // controls the background filling
-                    $colour = false;                
+                    $colour = false;
                     foreach ($objects as $object)
                     {
                         $style = $colour ? 'datap' : 'datai';
@@ -371,7 +371,7 @@ class MovimentoReport extends TPage
                                     {
                                         return $value;
                                     }
-                                }, $breakTotal_vlr_total); 
+                                }, $breakTotal_vlr_total);
 
                                 $tr->addCell('', 'center', 'breakTotal');
                                 $tr->addCell('', 'center', 'breakTotal');
@@ -393,7 +393,7 @@ class MovimentoReport extends TPage
 
                         $firstRow = false;
 
-                        $object->vlr_total = call_user_func(function($value, $object, $row) 
+                        $object->vlr_total = call_user_func(function($value, $object, $row)
                         {
                             if(!$value)
                             {
@@ -410,7 +410,7 @@ class MovimentoReport extends TPage
                             }
                         }, $object->vlr_total, $object, null);
 
-                        $object->data_entrega = call_user_func(function($value, $object, $row) 
+                        $object->data_entrega = call_user_func(function($value, $object, $row)
                         {
                             if(!empty(trim($value)))
                             {
@@ -426,7 +426,7 @@ class MovimentoReport extends TPage
                             }
                         }, $object->data_entrega, $object, null);
 
-                        $object->data_abertura = call_user_func(function($value, $object, $row) 
+                        $object->data_abertura = call_user_func(function($value, $object, $row)
                         {
                             if(!empty(trim($value)))
                             {
@@ -475,7 +475,7 @@ class MovimentoReport extends TPage
                         {
                             return $value;
                         }
-                    }, $breakTotal_vlr_total); 
+                    }, $breakTotal_vlr_total);
 
                     $tr->addCell('', 'center', 'breakTotal');
                     $tr->addCell('', 'center', 'breakTotal');
@@ -505,7 +505,7 @@ class MovimentoReport extends TPage
                         {
                             return $value;
                         }
-                    }, $grandTotal_vlr_total); 
+                    }, $grandTotal_vlr_total);
 
                     $tr->addCell('', 'center', 'total');
                     $tr->addCell('', 'center', 'total');
